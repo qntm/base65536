@@ -6,8 +6,8 @@
 	byte per character).
 */
 
-require("string.fromcodePoint");
-require("string.prototype.codePointat");
+require("string.fromcodepoint");
+require("string.prototype.codepointat");
 var get_block_start = require("./get-block-start.json");
 var get_b2 = require("./get-b2.json");
 
