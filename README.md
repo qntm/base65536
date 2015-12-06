@@ -111,9 +111,9 @@ Using elementary run-length encoding, with two bits of keystroke and two bits of
 > 𣺻ꉌ邹𡊻𣹫𤅋𤇅𣾻𤇄𓎜𠚻𤊻𢊻𤉛𤅫𤂑𤃃𡉌𤵛𣹛𤁐𢉋𡉻𡡫𤇠𠞗𤇡𡊄𡒌𣼻燉𣼋
 > 𦄘炸邹㢸𠞻𠦻𡊻𣈻𡈻𣈛𡈛ꊺ𠆼𤂅𣻆𣫃𤮺𤊻𡉋㽻𣺬𣈛𡈋𤭻𤂲𣈻𤭻𤊼𢈛儛𡈛ᔺ
 
-This fits comfortably in a Tweet, with an extravagant 12 characters left over for your comment.
+This [fits comfortably in a Tweet](https://twitter.com/qntm/status/673523018224791552), with an extravagant 12 characters left over for your comment.
 
-And of course, the worse you are HATETRIS, the shorter your replay is, and the more room you have for invective.
+And of course, the worse you are at HATETRIS, the shorter your replay is, and the more room you have for invective.
 
 ## License
 
