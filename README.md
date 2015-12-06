@@ -63,6 +63,20 @@ Decodes a Base65536 `String` and returns a `Buffer` containing the original bina
 
 This function is currently very strict, with no tolerance for whitespace or other unexpected characters. An `Error` is thrown if the supplied string is not a valid Base65536 text, or if there is a "final byte" code point in the middle of the string.
 
+## More examples
+
+```js
+var hash = md5("");                 // "d41d8cd98f00b204e9800998ecf8427e", 32 hex digits
+var buf = new Buffer(hash, "hex");  // <Buffer d4 1d ... 7e>
+console.log(base65536.encode(buf)); // "勔𥾌㒏㢲𠛩𡸉𧻬𠑂", 8 chars
+```
+
+```js
+var uuid = "8eb44f6c-2505-4446-aa57-22d6897c9922";   // 32 hex digits
+var buf = new Buffer(uuid.replace(/-/g, ""), "hex"); // <Buffer 8e b4 ... 22>
+console.log(base65546.encode(buf));                  // "𣪎ꍏ㤥筄貪𥰢𠊉垙", 8 chars
+```
+
 ## Why?
 
 Erm.
@@ -100,8 +114,6 @@ Using elementary run-length encoding, with two bits of keystroke and two bits of
 This fits comfortably in a Tweet, with an extravagant 12 characters left over for your comment.
 
 And of course, the worse you are HATETRIS, the shorter your replay is, and the more room you have for invective.
-
-I haven't actually implemented this as part of HATETRIS yet but I'll get to it eventually.
 
 ## License
 
