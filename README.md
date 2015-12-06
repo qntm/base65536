@@ -42,16 +42,18 @@ Encodes a [`Buffer`](https://nodejs.org/api/buffer.html#buffer_new_buffer_str_en
 
 #### Note
 
-While you might expect that the `length` of the resulting string is half the `length` of the original buffer, this is only true when counting //Unicode code points//. In JavaScript, a string's `length` property reports not the number of code points but the number of //16-bit code units// in the string. For characters outside of the Basic Multilingual Plane, a [surrogate pair of 16-bit code units](https://en.wikipedia.org/wiki/UTF-16) is used to represent each code point. `base65536` makes extensive use of these characters.
+While you might expect that the `length` of the resulting string is half the `length` of the original buffer, this is only true when counting *Unicode code points*. In JavaScript, a string's `length` property reports not the number of code points but the number of *16-bit code units* in the string. For characters outside of the Basic Multilingual Plane, a [surrogate pair of 16-bit code units](https://en.wikipedia.org/wiki/UTF-16) is used to represent each code point. `base65536` makes extensive use of these characters.
 
 As a worked example:
 
-> var buf = new Buffer([255, 255]);    // two bytes
-> var str = base65536.encode(buf);     // "𨗿", one code point, U+285FF
-> console.log(str.length);             // 2, two 16-bit code units
-> console.log(str.charCodeAt(0));      // 55393 = 0xD861
-> console.log(str.charCodeAt(1));      // 56831 = 0xDDFF
-> console.log(str === "\uD861\uDDFF"); // true
+```js
+var buf = new Buffer([255, 255]);    // two bytes
+var str = base65536.encode(buf);     // "𨗿", one code point, U+285FF
+console.log(str.length);             // 2, two 16-bit code units
+console.log(str.charCodeAt(0));      // 55393 = 0xD861
+console.log(str.charCodeAt(1));      // 56831 = 0xDDFF
+console.log(str === "\uD861\uDDFF"); // true
+```
 
 ### base65536.decode(str)
 
@@ -95,7 +97,7 @@ Using elementary run-length encoding, with two bits of keystroke and two bits of
 
 This fits comfortably in a Tweet, with an extravagant 12 characters left over for your comment.
 
-And of course, the worse you are HATETRIS, the shorter your replay is, and the more you have for invective.
+And of course, the worse you are HATETRIS, the shorter your replay is, and the more room you have for invective.
 
 I haven't actually implemented this as part of HATETRIS yet but I'll get to it eventually.
 
