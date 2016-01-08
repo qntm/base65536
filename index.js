@@ -35,7 +35,7 @@ module.exports = {
 			var b1 = codePoint & ((1 << 8) - 1);
 			var b2 = get_b2[codePoint - b1];
 			if(b2 === undefined) {
-				throw new Error("Not a valid Base65536 code point: " + Number(codePoint));
+				throw new Error("Not a valid Base65536 code point: " + String(codePoint));
 			}
 			var buf = b2 === NO_BYTE ? new Buffer([b1]) : new Buffer([b1, b2]);
 			if(buf.length === 1) {
