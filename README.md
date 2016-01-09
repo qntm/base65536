@@ -115,6 +115,12 @@ This [fits comfortably in a Tweet](https://twitter.com/qntm/status/6735230182247
 
 And of course, the worse you are at HATETRIS, the shorter your replay is, and the more room you have for invective.
 
+## Unicode has 1,114,112 code points, most of which we aren't using. Can we go further?
+
+To encode one additional bit per character, or 140 additional bits (37.5 additional octets) per Tweet, we need to *double* the number of code points we use.
+
+[`base65536gen`](https://github.com/ferno/base65536gen) returns only 92,240 safe characters from the "Letter, Other" [General Category](https://en.wikipedia.org/wiki/Unicode_character_property#General_Category). Modifying it to add other safe General Categories (all the Letter, Number and Symbol GCs) yields only 101,064 safe characters. We really need 131,072, and even then the gain would be marginal (17 bits per code point instead of 16).
+
 ## License
 
 MIT
