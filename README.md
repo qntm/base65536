@@ -14,8 +14,6 @@ In theory, this project could have been a one-liner. In practice, naively taking
 
 For details of how these code points were chosen and why they are thought to be safe, [see the sibling project `base65536gen`](https://github.com/ferno/base65536gen).
 
-As indicated by the leading "0." on the version number of both projects, these choices of "safe" code points are potentially subject to backwards-incompatible breaking changes which retroactively corrupt all existing Base65536 texts.
-
 ## Installation
 
 ```bash
