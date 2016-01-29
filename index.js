@@ -31,6 +31,9 @@ module.exports = {
 		var bufs = [];
 		var done = false;
 		for(var i = 0; i < str.length; i++) {
+			if(done) {
+				throw new Error("Base65536 sequence continued after final byte");
+			}
 			var codePoint = str.codePointAt(i);
 			var b1 = codePoint & ((1 << 8) - 1);
 			var b2 = get_b2[codePoint - b1];
@@ -39,9 +42,6 @@ module.exports = {
 			}
 			var buf = b2 === NO_BYTE ? new Buffer([b1]) : new Buffer([b1, b2]);
 			if(buf.length === 1) {
-				if(done) {
-					throw new Error("Base65536 sequence continued after final byte");
-				}
 				done = true;
 			}
 			bufs.push(buf);
