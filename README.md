@@ -113,6 +113,12 @@ This [fits comfortably in a Tweet](https://twitter.com/qntm/status/6735230182247
 
 And of course, the worse you are at HATETRIS, the shorter your replay is, and the more room you have for invective.
 
+## Efficiency
+
+Given 1MB of input, Base65536 returns 1.79MB of UTF-8 output on average, 1.57MB of UTF-16 or 2.00MB of UTF-32.
+
+Compare Base64, which would return 1.33MB of UTF-8, 2.67MB of UTF-16 or 5.33MB of UTF-32.
+
 ## Unicode has 1,114,112 code points, most of which we aren't using. Can we go further?
 
 To encode one additional bit per character, or 140 additional bits (37.5 additional octets) per Tweet, we need to *double* the number of code points we use.
