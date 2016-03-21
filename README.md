@@ -128,3 +128,9 @@ To encode one additional bit per character, or 140 additional bits (37.5 additio
 ## License
 
 MIT
+
+## In other languages
+
+* [Python](https://github.com/Parkayun/base65536)
+* [Go](https://github.com/Nightbug/go-base65536)
+* [Ruby](https://github.com/Nightbug/base65536-ruby)
