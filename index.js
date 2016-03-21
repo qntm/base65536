@@ -40,11 +40,12 @@ module.exports = {
 			if(b2 === undefined) {
 				throw new Error("Not a valid Base65536 code point: " + String(codePoint));
 			}
-			var buf = b2 === NO_BYTE ? new Buffer([b1]) : new Buffer([b1, b2]);
-			if(buf.length === 1) {
+			if(b2 === NO_BYTE) {
+				bufs.push(new Buffer([b1]));
 				done = true;
+			} else {
+				bufs.push(new Buffer([b1, b2]));
 			}
-			bufs.push(buf);
 			if(codePoint >= (1 << 16)) {
 				i++;
 			}
