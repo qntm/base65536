@@ -131,6 +131,9 @@ MIT
 
 ## In other languages
 
+Several people have ported Base65536 from JavaScript to other programming languages.
+
 * [Python](https://github.com/Parkayun/base65536)
 * [Go](https://github.com/Nightbug/go-base65536)
 * [Ruby](https://github.com/Nightbug/base65536-ruby)
+* [PHP](https://github.com/hevertonfreitas/base65536)
