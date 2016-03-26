@@ -1,8 +1,8 @@
 # base65536
 
-[Base64](https://en.wikipedia.org/wiki/Base64) is used to encode arbitrary binary data as "plain" text using a small, extremely safe repertoire of 64 (well, 65) characters. Base64 remains highly suited to text systems where the range of characters available is very small -- i.e., anything still constrained to plain ASCII. Base64 encodes 6 bits, or 3/4 of an octet, per character.
+[Base64](https://en.wikipedia.org/wiki/Base64) is used to encode arbitrary binary data as "plain" text using a small, extremely safe repertoire of 64 (well, 65) characters. Base64 remains highly suited to text systems where the range of characters available is very small -- i.e., anything still constrained to plain ASCII. Base64 encodes 6 bits, or 3/4 of an byte, per character. A 140-character Tweet, for example, can hold 105 bytes of Base64-encoded data.
 
-However, now that Unicode rules the world, the range of characters which can be considered "safe" in this way is, in many situations, significantly wider. Base65536 applies the same basic principle to a carefully-chosen repertoire of 65,536 (well, 65,792) Unicode code points, encoding 16 bits, or 2 octets, per character. This allows up to 280 octets of binary data to fit in a Tweet.
+However, now that Unicode rules the world, the range of characters which can be considered "safe" in this way is, in many situations, significantly wider. **Base65536** applies the same basic principle to a carefully-chosen repertoire of 65,536 (well, 65,792) Unicode code points, encoding 16 bits, or 2 bytes, per character. That's 280 bytes per Tweet.
 
 In theory, this project could have been a one-liner. In practice, naively taking each pair of bytes and smooshing them together to make a single code point is a bad way to do this because you end up with:
 
@@ -12,7 +12,7 @@ In theory, this project could have been a one-liner. In practice, naively taking
 * Normalization corruption
 * No way to tell whether the final byte in the sequence was there in the original or not
 
-For details of how these code points were chosen and why they are thought to be safe, [see the sibling project `base65536gen`](https://github.com/ferno/base65536gen).
+Instead, Base65536 uses carefully-chosen blocks of code points which have none of these problems, plus one extra block to signal a lone final byte. For details of how these code points were chosen and why they are thought to be safe, [see the sibling project `base65536gen`](https://github.com/ferno/base65536gen).
 
 ## Installation
 
@@ -23,7 +23,7 @@ npm install base65536
 ## Usage
 
 ```js
-var base65536 = require('base65536');
+var base65536 = require("base65536");
 
 var buf = new Buffer("hello world"); // 11 bytes
 
@@ -42,7 +42,7 @@ Encodes a [`Buffer`](https://nodejs.org/api/buffer.html#buffer_new_buffer_str_en
 
 #### Note
 
-While you might expect that the `length` of the resulting string is half the `length` of the original buffer, this is only true when counting *Unicode code points*. In JavaScript, a string's `length` property reports not the number of code points but the number of *16-bit code units* in the string. For characters outside of the Basic Multilingual Plane, a [surrogate pair of 16-bit code units](https://en.wikipedia.org/wiki/UTF-16) is used to represent each code point. `base65536` makes extensive use of these characters.
+While you might expect that the `length` of the resulting string is half the `length` of the original buffer, this is only true when counting *Unicode code points*. In JavaScript, a string's `length` property reports not the number of code points but the number of *16-bit code units* in the string. For characters outside of the Basic Multilingual Plane, a [surrogate pair of 16-bit code units](https://en.wikipedia.org/wiki/UTF-16) is used to represent each code point. `base65536` makes extensive use of these characters: 37,376, or about 57%, of the 65,536 code points are chosen from these Supplementary Planes.
 
 As a worked example:
 
@@ -73,6 +73,13 @@ console.log(base65536.encode(buf)); // "勔𥾌㒏㢲𠛩𡸉𧻬𠑂", 8 chars
 var uuid = "8eb44f6c-2505-4446-aa57-22d6897c9922";   // 32 hex digits
 var buf = new Buffer(uuid.replace(/-/g, ""), "hex"); // <Buffer 8e b4 ... 22>
 console.log(base65546.encode(buf));                  // "𣪎ꍏ㤥筄貪𥰢𠊉垙", 8 chars
+```
+
+```js
+var Address6 = require("ip-address").Address6;
+var address = new Address6("2001:db8:85a3::8a2e:370:7334"); // 32 hex digits
+var buf = new Buffer(address.toByteArray());                // <Buffer 20 01 ... 34>
+console.log(base65536.encode(buf));                         // "㔠𣸍𢦅㐀㐀掊𒄃楳", 8 chars
 ```
 
 ## Why?
@@ -121,7 +128,7 @@ Compare Base64, which would return 1.33MB of UTF-8, 2.67MB of UTF-16 or 5.33MB o
 
 ## Unicode has 1,114,112 code points, most of which we aren't using. Can we go further?
 
-To encode one additional bit per character, or 140 additional bits (37.5 additional octets) per Tweet, we need to *double* the number of code points we use.
+To encode one additional bit per character, or 140 additional bits (37.5 additional bytes) per Tweet, we need to *double* the number of code points we use.
 
 [`base65536gen`](https://github.com/ferno/base65536gen) returns only 92,240 safe characters from the "Letter, Other" [General Category](https://en.wikipedia.org/wiki/Unicode_character_property#General_Category). Modifying it to add other safe General Categories (all the Letter, Number and Symbol GCs) yields only 101,064 safe characters. We really need 131,072, and even then the gain would be marginal (17 bits per code point instead of 16).
 
