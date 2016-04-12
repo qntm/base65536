@@ -89,6 +89,8 @@ Efficiency ratings are averaged over long inputs. Higher is better.
 
 For example, using Base64, up to 105 bytes of binary data can fit in a Tweet. With Base65536, 280 bytes are possible.
 
+Base65536 uses only "safe" Unicode code points - no unassigned code points, no whitespace, no control characters, etc.. For details of how these code points were selected and why they are thought to be safe, see the sibling project [`base65536gen`](https://github.com/ferno/base65536gen).
+
 ## Installation
 
 ```bash
@@ -190,9 +192,13 @@ And of course, the worse you are at HATETRIS, the shorter your replay is, and th
 
 ## Unicode has 1,114,112 code points, most of which we aren't using. Can we go further?
 
-To encode one additional bit per character, or 140 additional bits (37.5 additional octets) per Tweet, we need to *double* the number of code points we use.
+Not yet.
 
-[`base65536gen`](https://github.com/ferno/base65536gen) returns only 92,240 safe characters from the "Letter, Other" [General Category](https://en.wikipedia.org/wiki/Unicode_character_property#General_Category). Modifying it to add other safe General Categories (all the Letter, Number and Symbol GCs) yields only 101,064 safe characters. We really need 131,072, and even then the gain would be marginal (17 bits per code point instead of 16).
+To encode one additional bit per character, or 140 additional bits (37.5 additional bytes) per Tweet, we need to *double* the number of code points we use from 65,536 to 131,072. This would be a new encoding, Base131072, and its UTF-32 encoding efficiency would be 53% vs. 50% for Base65536. (Note that in UTF-16, [Base32768](https://github.com/ferno/base32768) significantly outperforms either choice, and in UTF-8, Base64 remains the preferred choice.)
+
+However, [`base65536gen`](https://github.com/ferno/base65536gen) returns only 92,240 safe characters from the "Letter, Other" [General Category](https://en.wikipedia.org/wiki/Unicode_character_property#General_Category). Modifying it to add other safe General Categories (all the Letter, Number and Symbol GCs) yields only 101,064 safe characters.
+
+Perhaps future versions of Unicode will assign more characters and make this possible.
 
 ## License
 
