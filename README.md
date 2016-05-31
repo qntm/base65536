@@ -212,3 +212,4 @@ Several people have ported Base65536 from JavaScript to other programming langua
 * [Go](https://github.com/Nightbug/go-base65536)
 * [Ruby](https://github.com/Nightbug/base65536-ruby)
 * [PHP](https://github.com/hevertonfreitas/base65536)
+* [Unix shell](https://github.com/girst/base65536)
