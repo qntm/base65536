@@ -1,18 +1,95 @@
 # base65536
 
-[Base64](https://en.wikipedia.org/wiki/Base64) is used to encode arbitrary binary data as "plain" text using a small, extremely safe repertoire of 64 (well, 65) characters. Base64 remains highly suited to text systems where the range of characters available is very small -- i.e., anything still constrained to plain ASCII. Base64 encodes 6 bits, or 3/4 of an byte, per character. A 140-character Tweet, for example, can hold 105 bytes of Base64-encoded data.
+Base65536 is a binary encoding optimised for UTF-32-encoded text and Twitter.
 
-However, now that Unicode rules the world, the range of characters which can be considered "safe" in this way is, in many situations, significantly wider. **Base65536** applies the same basic principle to a carefully-chosen repertoire of 65,536 (well, 65,792) Unicode code points, encoding 16 bits, or 2 bytes, per character. That's 280 bytes per Tweet.
+Efficiency ratings are averaged over long inputs. Higher is better.
 
-In theory, this project could have been a one-liner. In practice, naively taking each pair of bytes and smooshing them together to make a single code point is a bad way to do this because you end up with:
+<table>
+	<thead>
+		<tr>
+			<th colspan="2" rowspan="2">Encoding</th>
+			<th rowspan="2">Implementation</th>
+			<th colspan="3">Efficiency</th>
+		</tr>
+		<tr>
+			<th>UTF&#x2011;8</th>
+			<th>UTF&#x2011;16</th>
+			<th>UTF&#x2011;32</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td rowspan="5">ASCII&#x2011;constrained</td>
+			<td>Unary</td>
+			<td><code><a href="https://github.com/ferno/base1">base1</a></code></td>
+			<td style="text-align: right;">0%</td>
+			<td style="text-align: right;">0%</td>
+			<td style="text-align: right;">0%</td>
+		</tr>
+		<tr>
+			<td>Binary</td>
+			<td>everywhere</td>
+			<td style="text-align: right;">13%</td>
+			<td style="text-align: right;">6%</td>
+			<td style="text-align: right;">3%</td>
+		</tr>
+		<tr>
+			<td>Hexadecimal</td>
+			<td>everywhere</td>
+			<td style="text-align: right;">50%</td>
+			<td style="text-align: right;">25%</td>
+			<td style="text-align: right;">13%</td>
+		</tr>
+		<tr>
+			<td>Base64</td>
+			<td>everywhere</td>
+			<td style="text-align: right;">75%</td>
+			<td style="text-align: right;">38%</td>
+			<td style="text-align: right;">19%</td>
+		</tr>
+		<tr>
+			<td>Base85</td>
+			<td>everywhere</td>
+			<td style="text-align: right;">80%</td>
+			<td style="text-align: right;">40%</td>
+			<td style="text-align: right;">20%</td>
+		</tr>
+		<tr>
+			<td rowspan="3">BMP&#x2011;constrained</td>
+			<td>HexagramEncode</td>
+			<td><code><a href="https://github.com/ferno/hexagram-encode">hexagram-encode</a></code></td>
+			<td style="text-align: right;">25%</td>
+			<td style="text-align: right;">38%</td>
+			<td style="text-align: right;">19%</td>
+		</tr>
+		<tr>
+			<td>BrailleEncode</td>
+			<td><code><a href="https://github.com/ferno/braille-encode">braille-encode</a></code></td>
+			<td style="text-align: right;">33%</td>
+			<td style="text-align: right;">50%</td>
+			<td style="text-align: right;">25%</td>
+		</tr>
+		<tr>
+			<td>Base32768</td>
+			<td><code><a href="https://github.com/ferno/base32768">base32768</a></code></td>
+			<td style="text-align: right;">63%</td>
+			<td style="text-align: right;"><strong>94%</strong></td>
+			<td style="text-align: right;">47%</td>
+		</tr>
+		<tr>
+			<td>Full Unicode</td>
+			<td>Base65536</td>
+			<td><code><a href="https://github.com/ferno/base65536">base65536</a></code></td>
+			<td style="text-align: right;">56%</td>
+			<td style="text-align: right;">64%</td>
+			<td style="text-align: right;"><strong>50%</strong></td>
+		</tr>
+	</tbody>
+</table>
 
-* Control characters
-* Whitespace
-* Unpaired surrogate pairs
-* Normalization corruption
-* No way to tell whether the final byte in the sequence was there in the original or not
+For example, using Base64, up to 105 bytes of binary data can fit in a Tweet. With Base65536, 280 bytes are possible.
 
-Instead, Base65536 uses carefully-chosen blocks of code points which have none of these problems, plus one extra block to signal a lone final byte. For details of how these code points were chosen and why they are thought to be safe, [see the sibling project `base65536gen`](https://github.com/ferno/base65536gen).
+Base65536 uses only "safe" Unicode code points - no unassigned code points, no whitespace, no control characters, etc.. For details of how these code points were selected and why they are thought to be safe, see the sibling project [`base65536gen`](https://github.com/ferno/base65536gen).
 
 ## Installation
 
@@ -120,17 +197,15 @@ This [fits comfortably in a Tweet](https://twitter.com/qntm/status/6735230182247
 
 And of course, the worse you are at HATETRIS, the shorter your replay is, and the more room you have for invective.
 
-## Efficiency
-
-Given 1MB of input, Base65536 returns 1.79MB of UTF-8 output on average, 1.57MB of UTF-16 or 2.00MB of UTF-32.
-
-Compare Base64, which would return 1.33MB of UTF-8, 2.67MB of UTF-16 or 5.33MB of UTF-32.
-
 ## Unicode has 1,114,112 code points, most of which we aren't using. Can we go further?
 
-To encode one additional bit per character, or 140 additional bits (37.5 additional bytes) per Tweet, we need to *double* the number of code points we use.
+Not yet.
 
-[`base65536gen`](https://github.com/ferno/base65536gen) returns only 92,240 safe characters from the "Letter, Other" [General Category](https://en.wikipedia.org/wiki/Unicode_character_property#General_Category). Modifying it to add other safe General Categories (all the Letter, Number and Symbol GCs) yields only 101,064 safe characters. We really need 131,072, and even then the gain would be marginal (17 bits per code point instead of 16).
+To encode one additional bit per character, or 140 additional bits (37.5 additional bytes) per Tweet, we need to *double* the number of code points we use from 65,536 to 131,072. This would be a new encoding, Base131072, and its UTF-32 encoding efficiency would be 53% vs. 50% for Base65536. (Note that in UTF-16, [Base32768](https://github.com/ferno/base32768) significantly outperforms either choice, and in UTF-8, Base64 remains the preferred choice.)
+
+However, [`base65536gen`](https://github.com/ferno/base65536gen) returns only 92,240 safe characters from the "Letter, Other" [General Category](https://en.wikipedia.org/wiki/Unicode_character_property#General_Category). Modifying it to add other safe General Categories (all the Letter, Number and Symbol GCs) yields only 101,064 safe characters.
+
+Perhaps future versions of Unicode will assign more characters and make this possible.
 
 ## License
 
@@ -144,3 +219,4 @@ Several people have ported Base65536 from JavaScript to other programming langua
 * [Go](https://github.com/Nightbug/go-base65536)
 * [Ruby](https://github.com/Nightbug/base65536-ruby)
 * [PHP](https://github.com/hevertonfreitas/base65536)
+* [Unix shell](https://github.com/girst/base65536)
