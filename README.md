@@ -1,6 +1,6 @@
 # base65536
 
-Base65536 is a binary encoding optimised for UTF-32-encoded text and Twitter.
+Base65536 is a binary encoding optimised for UTF-32-encoded text and Twitter. This JavaScript module, `base65536`, is the first implementation of this encoding.
 
 Efficiency ratings are averaged over long inputs. Higher is better.
 
@@ -77,12 +77,19 @@ Efficiency ratings are averaged over long inputs. Higher is better.
 			<td style="text-align: right;">47%</td>
 		</tr>
 		<tr>
-			<td>Full Unicode</td>
+			<td rowspan="2">Full Unicode</td>
 			<td>Base65536</td>
 			<td><code><a href="https://github.com/ferno/base65536">base65536</a></code></td>
 			<td style="text-align: right;">56%</td>
 			<td style="text-align: right;">64%</td>
 			<td style="text-align: right;"><strong>50%</strong></td>
+		</tr>
+		<tr>
+			<td>Base131072</td>
+			<td><code><a href="https://github.com/ferno/base131072">base131072</a></code> (prototype)</td>
+			<td style="text-align: right;">53%+</td>
+			<td style="text-align: right;">53%+</td>
+			<td style="text-align: right;">53%</td>
 		</tr>
 	</tbody>
 </table>
@@ -201,9 +208,9 @@ And of course, the worse you are at HATETRIS, the shorter your replay is, and th
 
 Not yet.
 
-To encode one additional bit per character, or 140 additional bits (37.5 additional bytes) per Tweet, we need to *double* the number of code points we use from 65,536 to 131,072. This would be a new encoding, Base131072, and its UTF-32 encoding efficiency would be 53% vs. 50% for Base65536. (Note that in UTF-16, [Base32768](https://github.com/ferno/base32768) significantly outperforms either choice, and in UTF-8, Base64 remains the preferred choice.)
+To encode one additional bit per character, or 140 additional bits (37.5 additional bytes) per Tweet, we need to *double* the number of code points we use from 65,536 to 131,072. This would be a new encoding, [Base131072](https://github.com/ferno/base131072), and its UTF-32 encoding efficiency would be 53% vs. 50% for Base65536. (Note that in UTF-16, [Base32768](https://github.com/ferno/base32768) significantly outperforms either choice, and in UTF-8, Base64 remains the preferred choice.)
 
-However, [`base65536gen`](https://github.com/ferno/base65536gen) returns only 92,240 safe characters from the "Letter, Other" [General Category](https://en.wikipedia.org/wiki/Unicode_character_property#General_Category). Modifying it to add other safe General Categories (all the Letter, Number and Symbol GCs) yields only 101,064 safe characters.
+However, as of Unicode 8.0, [`base65536gen`](https://github.com/ferno/base65536gen) returns only 92,240 safe characters from the "Letter, Other" [General Category](https://en.wikipedia.org/wiki/Unicode_character_property#General_Category). Modifying it to add other safe General Categories (all the Letter, Number and Symbol GCs) yields only 101,064 safe characters. A similar calculation for Unicode 9.0 is forthcoming but the numbers still aren't high enough.
 
 Perhaps future versions of Unicode will assign more characters and make this possible.
 
