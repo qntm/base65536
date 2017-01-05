@@ -156,7 +156,7 @@ console.log(base65536.encode(buf)); // "勔𥾌㒏㢲𠛩𡸉𧻬𠑂", 8 chars
 ```js
 var uuid = "8eb44f6c-2505-4446-aa57-22d6897c9922";   // 32 hex digits
 var buf = new Buffer(uuid.replace(/-/g, ""), "hex"); // <Buffer 8e b4 ... 22>
-console.log(base65546.encode(buf));                  // "𣪎ꍏ㤥筄貪𥰢𠊉垙", 8 chars
+console.log(base65536.encode(buf));                  // "𣪎ꍏ㤥筄貪𥰢𠊉垙", 8 chars
 ```
 
 ```js
