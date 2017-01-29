@@ -1,28 +1,30 @@
 {
-	"name": "base65536",
-	"version": "1.0.3",
-	"description": "Unicode's answer to Base64",
-	"homepage": "https://github.com/ferno/base65536",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/ferno/base65536.git"
-	},
-	"main": "index.js",
-	"keywords": [
-		"base64",
-		"base65536",
-		"encoding",
-		"unicode",
-		"text",
-		"decoding"
-	],
-	"scripts": {
-		"test": "node test/test.js"
-	},
-	"dependencies": [
-		"string.fromcodepoint",
-		"string.prototype.codepointat"
-	],
-	"author": "ferno",
-	"license": "MIT"
+  "name": "base65536",
+  "description": "Unicode's answer to Base64",
+  "homepage": "https://github.com/ferno/base65536",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ferno/base65536.git"
+  },
+  "main": "index.js",
+  "keywords": [
+    "base64",
+    "base65536",
+    "encoding",
+    "unicode",
+    "text",
+    "decoding"
+  ],
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "dependencies": [
+    "string.fromcodepoint",
+    "string.prototype.codepointat"
+  ],
+  "author": "ferno",
+  "license": "MIT",
+  "devDependencies": {
+    "glob": "^7.1.1"
+  }
 }
