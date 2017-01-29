@@ -1,5 +1,6 @@
 {
   "name": "base65536",
+  "version": "1.0.4",
   "description": "Unicode's answer to Base64",
   "homepage": "https://github.com/ferno/base65536",
   "repository": {
