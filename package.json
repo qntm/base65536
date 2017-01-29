@@ -17,7 +17,7 @@
 		"decoding"
 	],
 	"scripts": {
-		"test": "node test.js"
+		"test": "node test/test.js"
 	},
 	"dependencies": [
 		"string.fromcodepoint",

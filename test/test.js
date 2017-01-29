@@ -1,6 +1,6 @@
 /** Tests for base65536, ensure strings survive round trips, etc. */
 
-var base65536 = require("./index.js");
+var base65536 = require("./../index.js");
 var fs = require("fs");
 
 // Exhaustively try all single-byte buffers
@@ -64,9 +64,9 @@ for(var b1 = 0; b1 < 256; b1++) {
 // Try some real binary samples, including a few images
 
 var sampleFiles = [
-	"./sample-files/everyByte",
-	"./sample-files/everyPairOfBytes",
-	"./sample-files/lena_std.tif"
+	"./test/sample-files/everyByte",
+	"./test/sample-files/everyPairOfBytes",
+	"./test/sample-files/lena_std.tif"
 ];
 
 sampleFiles.forEach(function(sampleFile) {
