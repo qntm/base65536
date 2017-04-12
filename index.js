@@ -32,9 +32,10 @@ module.exports = {
         if(limit === undefined) {
             limit = buf.length - offset;
         }
-		for(var i = offset; i < (limit + offset); i += 2) {
+        limit = limit + offset;
+		for(var i = offset; i < limit; i += 2) {
 			var b1 = buf[i];
-			var b2 = i + 1 < buf.length ? buf[i + 1] : NO_BYTE;
+			var b2 = i + 1 < limit ? buf[i + 1] : NO_BYTE;
 			var codePoint = get_block_start[b2] + b1;
 			var str = String.fromCodePoint(codePoint);
 			strs.push(str);
