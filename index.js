@@ -15,9 +15,24 @@ var NO_BYTE = -1;
 
 module.exports = {
 
-	encode: function(buf) {
+    /**
+     * encode from buffer to base65536 string
+     * @param buf -- input buffer
+     * @param offset (optional) starting byte to read from
+     * @param limit (optional) total number of bytes to process
+     *
+     * If offset is omitted, 0 is used.
+     * If limit is omitted, it will read till last byte in buffer.
+     **/
+	encode: function(buf, offset, limit) {
 		var strs = [];
-		for(var i = 0; i < buf.length; i += 2) {
+        if(offset === undefined) {
+            offset = 0;
+        }
+        if(limit === undefined) {
+            limit = buf.length - offset;
+        }
+		for(var i = offset; i < (limit + offset); i += 2) {
 			var b1 = buf[i];
 			var b2 = i + 1 < buf.length ? buf[i + 1] : NO_BYTE;
 			var codePoint = get_block_start[b2] + b1;
