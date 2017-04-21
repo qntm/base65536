@@ -1,6 +1,6 @@
 {
   "name": "base65536",
-  "version": "1.0.4",
+  "version": "1.0.65536",
   "description": "Unicode's answer to Base64",
   "homepage": "https://github.com/ferno/base65536",
   "repository": {
@@ -19,10 +19,7 @@
   "scripts": {
     "test": "node test/test.js"
   },
-  "dependencies": [
-    "string.fromcodepoint",
-    "string.prototype.codepointat"
-  ],
+  "dependencies": [],
   "author": "ferno",
   "license": "MIT",
   "devDependencies": {
