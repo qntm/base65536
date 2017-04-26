@@ -2,7 +2,7 @@
 
 var del = require('del')
 var gulp = require('gulp')
-var gulpRename = require('gulp-rename');
+var gulpRename = require('gulp-rename')
 var runSequence = require('run-sequence')
 
 gulp.task('delete', function () {
