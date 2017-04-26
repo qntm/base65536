@@ -3,10 +3,11 @@
 var del = require('del')
 var gulp = require('gulp')
 var gulpJasmine = require('gulp-jasmine')
-var gulpRename = require('gulp-rename')
 var gulpStandard = require('gulp-standard')
+var gulpTslint = require('gulp-tslint')
 var gulpTypescript = require('gulp-typescript')
 var runSequence = require('run-sequence')
+var tslint = require('tslint')
 
 gulp.task('delete', function () {
   del.sync('./dist')
@@ -16,7 +17,10 @@ gulp.task('standard', function () {
   return gulp
     .src(['./**/*.js', '!node_modules/**/*.js'])
     .pipe(gulpStandard())
-    .pipe(gulpStandard.reporter('default'))
+    .pipe(gulpStandard.reporter('default', {
+      breakOnError: true,
+      breakOnWarning: true
+    }))
 })
 
 gulp.task('jasmine', function () {
@@ -26,6 +30,16 @@ gulp.task('jasmine', function () {
       verbose: true,
       includeStackTrace: true
     }))
+})
+
+gulp.task('tslint', function () {
+  return gulp
+    .src('./src/index.ts')
+    .pipe(gulpTslint({
+      formatter: 'verbose',
+      program: tslint.Linter.createProgram('tsconfig.json')
+    }))
+    .pipe(gulpTslint.report())
 })
 
 gulp.task('ts', function () {

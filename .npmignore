@@ -1,4 +1,4 @@
-.*
-gulpfile.js
-src
-spec
+*
+!dist
+!package.json
+!README.md

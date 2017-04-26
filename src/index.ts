@@ -1,10 +1,10 @@
 /**
-  Routines for converting binary data into text data which can be sent safely
-  through 'Unicode-clean' text systems without information being lost. Analogous
-  to Base64 with a significantly larger character repertoire enabling the
-  encoding of 2.00 bytes per character (for comparison, Base64 manages 0.75 bytes
-  per character).
-*/
+ * Routines for converting binary data into text data which can be sent safely
+ * through 'Unicode-clean' text systems without information being lost. Analogous
+ * to Base64 with a significantly larger character repertoire enabling the
+ * encoding of 2.00 bytes per character (for comparison, Base64 manages 0.75 bytes
+ * per character).
+ */
 
 'use strict'
 
@@ -76,7 +76,7 @@ const blockStarts = spreadString(
 const possibleBytes = 1 << 8
 
 interface IB2s {
-	[key: string]: number
+  [key: string]: number
 }
 
 const b2s: IB2s = {}
@@ -118,7 +118,17 @@ module.exports = {
         bytes.push(b1)
         done = true
       } else {
-        const b2 = b2s[blockStart]
+
+        // Something weird about this. We know that `b2s` is an array whose values
+        // are numbers, which means that the type of `b2s[blockStart]` is either a
+        // number (in the case of a successful access) or `undefined` (in the case
+        // of an unsuccessful access). However, TSLint reports that the next check,
+        // `b2 === undefined`, "is always false". This means that instead of leaving
+        // the type of `b2` implicit, we have to explicitly declare it to be
+        // `number|undefined`.
+        // <https://github.com/palantir/tslint/issues/2376> ?
+        const b2: number|undefined = b2s[blockStart]
+
         if (b2 === undefined) {
           throw Error('Not a valid Base65536 code point: ' + String(codePoint))
         }
