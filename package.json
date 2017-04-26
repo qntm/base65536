@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git://github.com/ferno/base65536.git"
   },
-  "main": "src/index.js",
+  "main": "dist/base65536.js",
   "keywords": [
     "base64",
     "base65536",
@@ -18,6 +18,8 @@
     "binary"
   ],
   "scripts": {
+    "prepublishOnly": "npm run gulp-build",
+    "gulp-build": "node ./node_modules/gulp/bin/gulp.js build",
     "test": "npm run standard && npm run js-test",
     "standard": "node ./node_modules/standard/bin/cmd.js --fix",
     "js-test": "node test/test.js"
