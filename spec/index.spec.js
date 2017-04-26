@@ -2,7 +2,7 @@
 
 /* eslint-env jasmine */
 
-var base65536 = require('./../src/index.js')
+var base65536 = require('./../dist/base65536.js') // test the build JS file
 var fs = require('fs')
 
 describe('base65536', function () {

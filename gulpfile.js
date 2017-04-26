@@ -5,6 +5,7 @@ var gulp = require('gulp')
 var gulpJasmine = require('gulp-jasmine')
 var gulpRename = require('gulp-rename')
 var gulpStandard = require('gulp-standard')
+var gulpTypescript = require('gulp-typescript')
 var runSequence = require('run-sequence')
 
 gulp.task('delete', function () {
@@ -27,17 +28,26 @@ gulp.task('jasmine', function () {
     }))
 })
 
-gulp.task('test', ['standard', 'jasmine'])
-
-gulp.task('js', function () {
+gulp.task('ts', function () {
   return gulp
-    .src('./src/index.js')
-    .pipe(gulpRename('base65536.js'))
+    .src('./src/index.ts')
+    .pipe(gulpTypescript({
+      module: 'system',
+      noImplicitAny: true,
+      noUnusedLocals: true,
+      noFallthroughCasesInSwitch: true,
+      noImplicitReturns: true,
+      noImplicitThis: true,
+      noImplicitUseStrict: true,
+      noUnusedParameters: true,
+      strictNullChecks: true,
+      outFile: 'base65536.js'
+    }))
     .pipe(gulp.dest('./dist'))
 })
 
 gulp.task('build', function (cb) {
-  runSequence('delete', 'test', 'js', cb)
+  runSequence('delete', 'standard', 'ts', 'jasmine', cb)
 })
 
 gulp.task('watch', ['build'], function () {

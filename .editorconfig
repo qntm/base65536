@@ -1,7 +1,7 @@
 [*]
 insert_final_newline = true
 
-[{*.js,*.json}]
+[{*.js,*.json,*.ts}]
 charset = utf-8
 indent_style = space
 indent_size = 2

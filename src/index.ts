@@ -8,37 +8,38 @@
 
 'use strict'
 
-// Some constants for UTF-16 encoding/decoding
-
-// High surrogate. Lowest 10 bits are free
-var high = 0xD800
-
-// Low surrogate. Lowest 10 bits are free. So a
-// high surrogate and a low surrogate between them
-// can encode 20 bits.
-var low = 0xDC00
+// Some constants for UTF-16 encoding/decoding of
+// code points outside the BMP
 
 // Code points outside of the BMP are from 65536 to
 // 1114111, so we subtract this figure to make them
 // from 0 to 1048575, 20 bits.
-var bmpThreshold = 1 << 16
+const bmpThreshold = 1 << 16
 
-// First 10 bits go in the low surrogate, the rest
-// in the high surrogate
-var offset = 1 << 10
+// 10 most significant bits go in the high surrogate,
+// the rest in the low surrogate
+const offset = 1 << 10
+
+// High surrogate. Lowest 10 bits are free
+const high = 0xD800
+
+// Low surrogate. Lowest 10 bits are free. So a
+// high surrogate and a low surrogate between them
+// can encode 20 bits.
+const low = 0xDC00
 
 // Because the spread operator isn't universal. :-/
 // Return code points directly instead of individual
 // characters to save some steps
-var spreadString = function (str) {
-  var codePoints = []
-  var i = 0
+const spreadString = function (str: string) {
+  const codePoints = []
+  let i = 0
   while (i < str.length) {
-    var first = str.charCodeAt(i)
+    const first = str.charCodeAt(i)
     i++
     if (high <= first && first < high + offset) {
       // UTF-16 decode
-      var second = str.charCodeAt(i)
+      const second = str.charCodeAt(i)
       i++
       if (low <= second && second < low + offset) {
         codePoints.push((first - high) * offset + (second - low) + bmpThreshold)
@@ -52,8 +53,8 @@ var spreadString = function (str) {
   return codePoints
 }
 
-var paddingBlockStart = spreadString('ᔀ')[0]
-var blockStarts = spreadString(
+const paddingBlockStart = spreadString('ᔀ')[0]
+const blockStarts = spreadString(
   '㐀㔀㘀㜀㠀㤀㨀㬀㰀㴀㸀㼀䀀䄀䈀䌀' +
   '䐀䔀䘀䜀䠀䤀䨀䬀䰀一伀倀儀刀匀吀' +
   '唀嘀圀堀夀娀嬀尀崀帀开怀愀戀挀搀' +
@@ -72,21 +73,24 @@ var blockStarts = spreadString(
   '𧘀𧜀𧠀𧤀𧨀𧬀𧰀𧴀𧸀𧼀𨀀𨄀𨈀𨌀𨐀𨔀'
 )
 
-var possibleBytes = 1 << 8
+const possibleBytes = 1 << 8
 
-var b2s = {}
-for (var b = 0; b < possibleBytes; b++) {
+interface IB2s {
+	[key: string]: number
+}
+
+const b2s: IB2s = {}
+for (let b = 0; b < possibleBytes; b++) {
   b2s[blockStarts[b]] = b
 }
 
 module.exports = {
-
-  encode: function (buf) {
-    var codePoints = []
-    for (var i = 0; i < buf.length; i += 2) {
-      var b1 = buf[i]
-      var blockStart = i + 1 < buf.length ? blockStarts[buf[i + 1]] : paddingBlockStart
-      var codePoint = blockStart + b1
+  encode: function (buf: Buffer) {
+    const codePoints = []
+    for (let i = 0; i < buf.length; i += 2) {
+      const b1 = buf[i]
+      const blockStart = i + 1 < buf.length ? blockStarts[buf[i + 1]] : paddingBlockStart
+      const codePoint = blockStart + b1
       codePoints.push(codePoint)
     }
     return codePoints.map(function (codePoint) {
@@ -95,26 +99,26 @@ module.exports = {
       }
 
       // UTF-16 post-BMP encode
-      var first = high + ((codePoint - bmpThreshold) / offset)
-      var second = low + (codePoint % offset)
+      const first = high + ((codePoint - bmpThreshold) / offset)
+      const second = low + (codePoint % offset)
       return String.fromCharCode(first) + String.fromCharCode(second)
     }).join('')
   },
 
-  decode: function (str) {
-    var bytes = []
-    var done = false
+  decode: function (str: string) {
+    const bytes: number[] = []
+    let done = false
     spreadString(str).forEach(function (codePoint) {
       if (done) {
         throw Error('Base65536 sequence continued after final byte')
       }
-      var b1 = codePoint & (possibleBytes - 1)
-      var blockStart = codePoint - b1
+      const b1 = codePoint & (possibleBytes - 1)
+      const blockStart = codePoint - b1
       if (blockStart === paddingBlockStart) {
         bytes.push(b1)
         done = true
       } else {
-        var b2 = b2s[blockStart]
+        const b2 = b2s[blockStart]
         if (b2 === undefined) {
           throw Error('Not a valid Base65536 code point: ' + String(codePoint))
         }
