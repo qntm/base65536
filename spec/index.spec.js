@@ -20,6 +20,8 @@ describe('base65536', function () {
     ]
     for (var b = 0; b < 1 << 8; b++) {
       caseNames.push('single-bytes/case' + String(b))
+    }
+    for (var b = 0; b < 1 << 8; b++) {
       caseNames.push('doubled-bytes/case' + String(b) + '-' + String(b))
     }
 
