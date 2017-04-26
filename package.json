@@ -18,12 +18,15 @@
     "binary"
   ],
   "scripts": {
-    "test": "node test/test.js"
+    "test": "npm run standard && npm run js-test",
+    "standard": "node ./node_modules/standard/bin/cmd.js --fix",
+    "js-test": "node test/test.js"
   },
   "dependencies": [],
   "author": "ferno",
   "license": "MIT",
   "devDependencies": {
-    "glob": "^7.1.1"
+    "glob": "^7.1.1",
+    "standard": "^10.0.2"
   }
 }
