@@ -1,6 +1,6 @@
 /** Tests for base65536, ensure strings survive round trips, etc. */
 
-var base65536 = require('./../index.js')
+var base65536 = require('./../src/index.js')
 var fs = require('fs')
 var glob = require('glob')
 

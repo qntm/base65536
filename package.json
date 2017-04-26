@@ -7,14 +7,15 @@
     "type": "git",
     "url": "git://github.com/ferno/base65536.git"
   },
-  "main": "index.js",
+  "main": "src/index.js",
   "keywords": [
     "base64",
     "base65536",
     "encoding",
     "unicode",
     "text",
-    "decoding"
+    "decoding",
+    "binary"
   ],
   "scripts": {
     "test": "node test/test.js"
