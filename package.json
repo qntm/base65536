@@ -20,14 +20,15 @@
   "scripts": {
     "gulp": "node ./node_modules/gulp/bin/gulp.js",
     "prepublishOnly": "npm run gulp build",
-    "standard": "node ./node_modules/standard/bin/cmd.js --fix",
-    "test": "npm run standard && npm run gulp jasmine"
+    "standard": "node ./node_modules/standard/bin/cmd.js",
+    "test": "npm run gulp test"
   },
   "dependencies": [],
   "author": "ferno",
   "license": "MIT",
   "devDependencies": {
     "gulp-jasmine": "^2.4.2",
+    "gulp-standard": "^10.0.0",
     "jasmine": "^2.6.0",
     "standard": "^10.0.2"
   }

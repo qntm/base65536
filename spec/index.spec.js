@@ -18,10 +18,11 @@ describe('base65536', function () {
       'sample-files/everyPairOfBytes',
       'sample-files/lena_std.tif'
     ]
-    for (var b = 0; b < 1 << 8; b++) {
+    var b
+    for (b = 0; b < 1 << 8; b++) {
       caseNames.push('single-bytes/case' + String(b))
     }
-    for (var b = 0; b < 1 << 8; b++) {
+    for (b = 0; b < 1 << 8; b++) {
       caseNames.push('doubled-bytes/case' + String(b) + '-' + String(b))
     }
 
