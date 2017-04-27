@@ -105,16 +105,16 @@ module.exports = {
     }).join('')
   },
 
-  decode: function (str: string) {
+  decode: function (str: string, ignoreGarbage: boolean = false) {
     const bytes: number[] = []
     let done = false
     spreadString(str).forEach(function (codePoint) {
-      if (done) {
-        throw Error('Base65536 sequence continued after final byte')
-      }
       const b1 = codePoint & (possibleBytes - 1)
       const blockStart = codePoint - b1
       if (blockStart === paddingBlockStart) {
+        if (done) {
+          throw Error('Base65536 sequence continued after final byte')
+        }
         bytes.push(b1)
         done = true
       } else {
@@ -129,10 +129,14 @@ module.exports = {
         // <https://github.com/palantir/tslint/issues/2376> ?
         const b2: number|undefined = b2s[blockStart]
 
-        if (b2 === undefined) {
+        if (b2 !== undefined) {
+          if (done) {
+            throw Error('Base65536 sequence continued after final byte')
+          }
+          bytes.push(b1, b2)
+        } else if(!ignoreGarbage) {
           throw Error('Not a valid Base65536 code point: ' + String(codePoint))
         }
-        bytes.push(b1, b2)
       }
     })
     return Buffer.from(bytes)

@@ -107,12 +107,12 @@ npm install base65536
 ## Usage
 
 ```js
-var base65536 = require("base65536");
+var base65536 = require('base65536');
 
-var buf = new Buffer("hello world"); // 11 bytes
+var buf = Buffer.from('hello world', 'utf-8'); // 11 bytes
 
 var str = base65536.encode(buf); 
-console.log(str); // 6 code points, "驨ꍬ啯𒁷ꍲᕤ"
+console.log(str); // 6 code points, '驨ꍬ啯𒁷ꍲᕤ'
 
 var buf2 = base65536.decode(str);
 console.log(buf.equals(buf2)); // true
@@ -136,32 +136,32 @@ var str = base65536.encode(buf);     // "𨗿", one code point, U+285FF
 console.log(str.length);             // 2, two 16-bit code units
 console.log(str.charCodeAt(0));      // 55393 = 0xD861
 console.log(str.charCodeAt(1));      // 56831 = 0xDDFF
-console.log(str === "\uD861\uDDFF"); // true
+console.log(str === '\uD861\uDDFF'); // true
 ```
 
-### base65536.decode(str)
+### base65536.decode(str[, ignoreGarbage])
 
 Decodes a Base65536 `String` and returns a `Buffer` containing the original binary data.
 
-This function is currently very strict, with no tolerance for whitespace or other unexpected characters. An `Error` is thrown if the supplied string is not a valid Base65536 text, or if there is a "final byte" code point in the middle of the string.
+By default this function is very strict, with no tolerance for whitespace or other unexpected characters. An `Error` is thrown if the supplied string is not a valid Base65536 text, or if there is a "final byte" code point in the middle of the string. Set `ignoreGarbage` to `true` to ignore non-Base65536 characters (line breaks, spaces, alphanumerics, ...) in the input.
 
 ## More examples
 
 ```js
-var hash = md5("");                 // "d41d8cd98f00b204e9800998ecf8427e", 32 hex digits
-var buf = new Buffer(hash, "hex");  // <Buffer d4 1d ... 7e>
+var hash = md5('');                 // "d41d8cd98f00b204e9800998ecf8427e", 32 hex digits
+var buf = new Buffer(hash, 'hex');  // <Buffer d4 1d ... 7e>
 console.log(base65536.encode(buf)); // "勔𥾌㒏㢲𠛩𡸉𧻬𠑂", 8 chars
 ```
 
 ```js
-var uuid = "8eb44f6c-2505-4446-aa57-22d6897c9922";   // 32 hex digits
-var buf = new Buffer(uuid.replace(/-/g, ""), "hex"); // <Buffer 8e b4 ... 22>
+var uuid = '8eb44f6c-2505-4446-aa57-22d6897c9922';   // 32 hex digits
+var buf = new Buffer(uuid.replace(/-/g, ''), 'hex'); // <Buffer 8e b4 ... 22>
 console.log(base65536.encode(buf));                  // "𣪎ꍏ㤥筄貪𥰢𠊉垙", 8 chars
 ```
 
 ```js
-var Address6 = require("ip-address").Address6;
-var address = new Address6("2001:db8:85a3::8a2e:370:7334"); // 32 hex digits
+var Address6 = require('ip-address').Address6;
+var address = new Address6('2001:db8:85a3::8a2e:370:7334'); // 32 hex digits
 var buf = new Buffer(address.toByteArray());                // <Buffer 20 01 ... 34>
 console.log(base65536.encode(buf));                         // "㔠𣸍𢦅㐀㐀掊𒄃楳", 8 chars
 ```

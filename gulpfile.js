@@ -67,3 +67,13 @@ gulp.task('build', function (cb) {
 gulp.task('watch', ['build'], function () {
   gulp.watch('./src/**/*.*', ['build'])
 })
+
+// TODO
+// Minified distribution
+// Test minified version too (?)
+// code coverage
+// convert Jasmine tests to TypeScript (?)
+//   (would probably have to test the TS code directly instead)
+// support wrapping output after certain number of columns
+// bin/base65536.js command a la <https://linux.die.net/man/1/base64>
+
