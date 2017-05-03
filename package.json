@@ -29,9 +29,11 @@
   "devDependencies": {
     "@types/node": "^7.0.14",
     "gulp-jasmine": "^2.4.2",
+    "gulp-rename": "^1.2.2",
     "gulp-standard": "^10.0.0",
     "gulp-tslint": "^8.0.0",
     "gulp-typescript": "^3.1.6",
+    "gulp-uglify": "^2.1.2",
     "jasmine": "^2.6.0",
     "standard": "^10.0.2",
     "tslint": "^5.1.0",
