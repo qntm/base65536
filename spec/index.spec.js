@@ -110,7 +110,7 @@ Object.keys(modules).forEach(function (moduleName) {
           caseNames.forEach(function (caseName) {
             const textFileName = caseName + '.txt'
             const binaryFileName = caseName + '.bin'
-            it('fails to decode ' + textFileName, function () {
+            it('successfully decodes ' + textFileName, function () {
               const text = fs.readFileSync(textFileName, 'utf8')
               const binary = fs.readFileSync(binaryFileName)
               expect(module.decode(text, true).equals(binary)).toBe(true)

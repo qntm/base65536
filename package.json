@@ -1,11 +1,11 @@
 {
   "name": "base65536",
-  "version": "1.0.65536",
+  "version": "1.0.65537",
   "description": "Unicode's answer to Base64",
-  "homepage": "https://github.com/ferno/base65536",
+  "homepage": "https://github.com/qntm/base65536",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ferno/base65536.git"
+    "url": "git://github.com/qntm/base65536.git"
   },
   "main": "dist/base65536.js",
   "keywords": [
@@ -24,7 +24,7 @@
     "test": "npm run gulp build"
   },
   "dependencies": [],
-  "author": "ferno",
+  "author": "qntm",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^7.0.14",
