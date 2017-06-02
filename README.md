@@ -166,6 +166,18 @@ var buf = new Buffer(address.toByteArray());                // <Buffer 20 01 ...
 console.log(base65536.encode(buf));                         // "㔠𣸍𢦅㐀㐀掊𒄃楳", 8 chars
 ```
 
+```js
+# encoding
+var input = "Some random string";
+var output = require('base65536').encode(new Buffer(input, "utf-8"));
+console.log(output);
+
+# decoding
+var input = "驲饤𓉩頮ꕯ𓀯𓌯驮𒅸顥驴ᕤ";
+var output = require('base65536').decode(input).toString();
+console.log(output);
+```
+
 ## Why?
 
 Erm.
