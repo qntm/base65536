@@ -50,7 +50,7 @@ Efficiency ratings are averaged over long inputs. Higher is better.
 		<tr>
 			<td>Base85</td>
 			<td>everywhere</td>
-			<td style="text-align: right;">80%</td>
+			<td style="text-align: right;"><strong>80%</strong></td>
 			<td style="text-align: right;">40%</td>
 			<td style="text-align: right;">20%</td>
 		</tr>
