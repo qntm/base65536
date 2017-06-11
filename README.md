@@ -225,3 +225,4 @@ Several people have ported Base65536 from JavaScript to other programming langua
 * [PHP](https://github.com/hevertonfreitas/base65536)
 * [C](https://github.com/girst/base65536)
 * [Rust](https://github.com/nuew/base65536)
+* [C#](https://github.com/cyberdot/base65536)
