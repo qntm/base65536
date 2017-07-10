@@ -50,3 +50,7 @@ Temporary Items
 # Mine
 node_modules
 dist
+bin
+!src/dist
+!src/bin
+

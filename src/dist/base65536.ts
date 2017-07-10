@@ -102,104 +102,102 @@ const unspreadString = function (codePoints: number[]) {
   }).join('')
 }
 
-module.exports = {
-  // Returns a new Transform (i.e. Duplex, i.e. both writable and readable)
-  // stream which accepts `Buffer` chunks as input and returns `String`
-  // chunks as output. Main new wrinkle introduced here is the need to
-  // retain one input byte for the next call in the event of odd-length
-  // inputs.
-  createEncodeStream: function () {
+// Returns a new Transform (i.e. Duplex, i.e. both writable and readable)
+// stream which accepts `Buffer` chunks as input and returns `String`
+// chunks as output. Main new wrinkle introduced here is the need to
+// retain one input byte for the next call in the event of odd-length
+// inputs.
+export const createEncodeStream = function () {
 
-    let oddByte: undefined|number
+  let oddByte: undefined|number
 
-    return new Transform({
-      transform (chunk: Buffer, _encoding, callback) {
-        const codePoints: number[] = []
-        for (let i = 0; i < chunk.length; i++) {
-          if (oddByte === undefined) {
-            oddByte = chunk[i]
-          } else {
-            codePoints.push(blockStarts[chunk[i]] + oddByte)
-            oddByte = undefined
-          }
-        }
-        callback(null, unspreadString(codePoints))
-      },
-
-      flush (callback) {
-        const codePoints: number[] = []
-        if (oddByte !== undefined) {
-          codePoints.push(paddingBlockStart + oddByte)
+  return new Transform({
+    transform (chunk: Buffer, _encoding, callback) {
+      const codePoints: number[] = []
+      for (let i = 0; i < chunk.length; i++) {
+        if (oddByte === undefined) {
+          oddByte = chunk[i]
+        } else {
+          codePoints.push(blockStarts[chunk[i]] + oddByte)
           oddByte = undefined
         }
-        callback(null, unspreadString(codePoints))
       }
-    })
-  },
+      callback(null, unspreadString(codePoints))
+    },
 
-  // Encode the supplied `Buffer` and return the resulting Base65536
-  // string.
-  encode: function (buf: Buffer) {
-    const encodeStream = module.exports.createEncodeStream()
-    let str = ''
-    encodeStream.on('data', function (chunk: string) {
-      str += chunk
-    })
-    encodeStream.write(buf)
-    encodeStream.end()
-    return str
-  },
+    flush (callback) {
+      const codePoints: number[] = []
+      if (oddByte !== undefined) {
+        codePoints.push(paddingBlockStart + oddByte)
+        oddByte = undefined
+      }
+      callback(null, unspreadString(codePoints))
+    }
+  })
+}
 
-  // Returns a new Transform (i.e. Duplex, i.e. both writable and readable)
-  // stream which accepts `String` chunks as input and returns `Buffer`
-  // chunks as output. We have to look out for misplaced odd bytes and such.
-  createDecodeStream: function (ignoreGarbage: boolean = false) {
+// Encode the supplied `Buffer` and return the resulting Base65536
+// string.
+export const encode = function (buf: Buffer) {
+  const encodeStream = module.exports.createEncodeStream()
+  let str = ''
+  encodeStream.on('data', function (chunk: string) {
+    str += chunk
+  })
+  encodeStream.write(buf)
+  encodeStream.end()
+  return str
+}
 
-    let done: boolean = false
+// Returns a new Transform (i.e. Duplex, i.e. both writable and readable)
+// stream which accepts `String` chunks as input and returns `Buffer`
+// chunks as output. We have to look out for misplaced odd bytes and such.
+export const createDecodeStream = function (ignoreGarbage: boolean = false) {
 
-    return new Transform({
-      decodeStrings: false,
-      transform (chunk: string, _encoding, callback) {
-        const bytes: number[] = []
-        spreadString(chunk).forEach(function (codePoint) {
-          const b1 = codePoint & (possibleBytes - 1)
-          const blockStart = codePoint - b1
-          if (blockStart === paddingBlockStart) {
+  let done: boolean = false
+
+  return new Transform({
+    decodeStrings: false,
+    transform (chunk: string, _encoding, callback) {
+      const bytes: number[] = []
+      spreadString(chunk).forEach(function (codePoint) {
+        const b1 = codePoint & (possibleBytes - 1)
+        const blockStart = codePoint - b1
+        if (blockStart === paddingBlockStart) {
+          if (done) {
+            callback(Error('Base65536 sequence continued after final byte'))
+            return
+          }
+          bytes.push(b1)
+          done = true
+        } else {
+          const b2 = b2s[blockStart]
+          if (b2 !== undefined) {
             if (done) {
               callback(Error('Base65536 sequence continued after final byte'))
               return
             }
-            bytes.push(b1)
-            done = true
-          } else {
-            const b2 = b2s[blockStart]
-            if (b2 !== undefined) {
-              if (done) {
-                callback(Error('Base65536 sequence continued after final byte'))
-                return
-              }
-              bytes.push(b1, b2)
-            } else if (!ignoreGarbage) {
-              callback(Error('Not a valid Base65536 code point: ' + String(codePoint)))
-            }
+            bytes.push(b1, b2)
+          } else if (!ignoreGarbage) {
+            callback(Error('Not a valid Base65536 code point: ' + String(codePoint)))
           }
-        })
-        callback(null, Buffer.from(bytes))
-      }
-    })
-  },
+        }
+      })
+      callback(null, Buffer.from(bytes))
+    }
+  })
+}
 
-  decode: function (str: string, ignoreGarbage: boolean = false) {
-    const decodeStream = module.exports.createDecodeStream(ignoreGarbage)
-    const buffers: Buffer[] = []
-    decodeStream.on('data', function (chunk: Buffer) {
-      buffers.push(chunk)
-    })
-    decodeStream.on('error', function (err) {
-      throw err
-    })
-    decodeStream.write(str)
-    decodeStream.end()
-    return Buffer.concat(buffers)
-  }
+export const decode = function (str: string, ignoreGarbage: boolean = false) {
+  const decodeStream = module.exports.createDecodeStream(ignoreGarbage)
+  const buffers: Buffer[] = []
+  decodeStream.on('data', function (chunk: Buffer) {
+    buffers.push(chunk)
+  })
+  decodeStream.on('error', function (err) {
+    throw err
+  })
+  decodeStream.write(str)
+  decodeStream.end()
+  return Buffer.concat(buffers)
 }

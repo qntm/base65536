@@ -9,11 +9,12 @@
     "noImplicitUseStrict": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
-    "outDir": "dist",
+    "outDir": ".",
     "noImplicitAny": false,
     "sourceMap": false
   },
   "files": [
-    "src/base65536.ts"
+    "src/dist/base65536.ts",
+    "src/bin/base65536.ts"
   ]
 }
