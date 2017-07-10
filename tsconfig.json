@@ -1,8 +1,19 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "es5",
-        "noImplicitAny": false,
-        "sourceMap": false
-    }
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitUseStrict": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "outDir": "dist",
+    "noImplicitAny": false,
+    "sourceMap": false
+  },
+  "files": [
+    "src/base65536.ts"
+  ]
 }

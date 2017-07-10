@@ -131,7 +131,7 @@ While you might expect that the `length` of the resulting string is half the `le
 As a worked example:
 
 ```js
-var buf = new Buffer([255, 255]);    // two bytes
+var buf = Buffer.from([255, 255]);    // two bytes
 var str = base65536.encode(buf);     // "𨗿", one code point, U+285FF
 console.log(str.length);             // 2, two 16-bit code units
 console.log(str.charCodeAt(0));      // 55393 = 0xD861
@@ -139,11 +139,19 @@ console.log(str.charCodeAt(1));      // 56831 = 0xDDFF
 console.log(str === '\uD861\uDDFF'); // true
 ```
 
+### base65536.createEncodeStream()
+
+Returns a new [`stream`](https://nodejs.org/api/stream.html) object which encodes binary data as Base65536.
+
 ### base65536.decode(str[, ignoreGarbage])
 
 Decodes a Base65536 `String` and returns a `Buffer` containing the original binary data.
 
 By default this function is very strict, with no tolerance for whitespace or other unexpected characters. An `Error` is thrown if the supplied string is not a valid Base65536 text, or if there is a "final byte" code point in the middle of the string. Set `ignoreGarbage` to `true` to ignore non-Base65536 characters (line breaks, spaces, alphanumerics, ...) in the input.
+
+### base65536.createDecodeStream([ignoreGarbage])
+
+Returns a new [`stream`](https://nodejs.org/api/stream.html) object which decodes Base65536 to binary data. 
 
 ## More examples
 

@@ -1,6 +1,5 @@
 {
   "name": "base65536",
-  "version": "1.0.65537",
   "description": "Unicode's answer to Base64",
   "homepage": "https://github.com/qntm/base65536",
   "repository": {
@@ -18,26 +17,24 @@
     "binary"
   ],
   "scripts": {
-    "gulp": "node ./node_modules/gulp/bin/gulp.js",
-    "prepublishOnly": "npm run gulp build",
-    "standard": "node ./node_modules/standard/bin/cmd.js",
-    "test": "npm run gulp build"
+    "build": "npm run tslint && npm run clean && npm run tsc && npm run uglify && npm run jasmine",
+    "clean": "rimraf dist",
+    "tslint": "tslint --type-check --format verbose --project tsconfig.json --config tslint.json src/**/*.ts",
+    "jasmine": "jasmine --config=jasmine.json",
+    "prepublishOnly": "npm run build",
+    "test": "npm run build",
+    "tsc": "tsc",
+    "uglify": "uglifyjs -mt --output dist/base65536.min.js dist/base65536.js"
   },
   "dependencies": [],
   "author": "qntm",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^7.0.14",
-    "gulp-jasmine": "^2.4.2",
-    "gulp-rename": "^1.2.2",
-    "gulp-standard": "^10.0.0",
-    "gulp-tslint": "^8.0.0",
-    "gulp-typescript": "^3.1.6",
-    "gulp-uglify": "^2.1.2",
     "jasmine": "^2.6.0",
-    "standard": "^10.0.2",
-    "tslint": "^5.1.0",
-    "tslint-config-standard": "^5.0.2",
-    "typescript": "^2.2.2"
+    "rimraf": "^2.6.1",
+    "tslint": "^5.5.0",
+    "tslint-config-standard": "^6.0.1",
+    "typescript": "^2.4.1"
   }
 }
