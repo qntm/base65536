@@ -50,7 +50,7 @@ Efficiency ratings are averaged over long inputs. Higher is better.
 		<tr>
 			<td>Base85</td>
 			<td>everywhere</td>
-			<td style="text-align: right;">80%</td>
+			<td style="text-align: right;"><strong>80%</strong></td>
 			<td style="text-align: right;">40%</td>
 			<td style="text-align: right;">20%</td>
 		</tr>
@@ -203,10 +203,7 @@ That's 899 characters including spaces, or 720 characters if the spaces were rem
 
 Using elementary run-length encoding, with two bits of keystroke and two bits of run length, I get down to 2040 bits. That's 255 bytes, which is still 340 characters of Base64. But in Base65536 this is 128 code points! Much better.
 
-> 𤇃𢊻𤄻嶜𤄋𤇁𡊻𤄛𤆬𠲻𤆻𠆜𢮻𤆻ꊌ𢪻𤆻邌𤆻𤊻𤅋𤲥𣾻𤄋𥆸𣊻𤅛ꊌ𤆻𤆱炼綻
-> 𤋅𤅴薹𣪻𣊻𣽻𤇆𤚢𣺻赈𤇣綹𤻈𤇣𤾺𤇃悺𢦻𤂻𤅠㢹𣾻𤄛𤆓𤦹𤊻𤄰炜傼𤞻𢊻𣲻
-> 𣺻ꉌ邹𡊻𣹫𤅋𤇅𣾻𤇄𓎜𠚻𤊻𢊻𤉛𤅫𤂑𤃃𡉌𤵛𣹛𤁐𢉋𡉻𡡫𤇠𠞗𤇡𡊄𡒌𣼻燉𣼋
-> 𦄘炸邹㢸𠞻𠦻𡊻𣈻𡈻𣈛𡈛ꊺ𠆼𤂅𣻆𣫃𤮺𤊻𡉋㽻𣺬𣈛𡈋𤭻𤂲𣈻𤭻𤊼𢈛儛𡈛ᔺ
+> 𤇃𢊻𤄻嶜𤄋𤇁𡊻𤄛𤆬𠲻𤆻𠆜𢮻𤆻ꊌ𢪻𤆻邌𤆻𤊻𤅋𤲥𣾻𤄋𥆸𣊻𤅛ꊌ𤆻𤆱炼綻𤋅𤅴薹𣪻𣊻𣽻𤇆𤚢𣺻赈𤇣綹𤻈𤇣𤾺𤇃悺𢦻𤂻𤅠㢹𣾻𤄛𤆓𤦹𤊻𤄰炜傼𤞻𢊻𣲻𣺻ꉌ邹𡊻𣹫𤅋𤇅𣾻𤇄𓎜𠚻𤊻𢊻𤉛𤅫𤂑𤃃𡉌𤵛𣹛𤁐𢉋𡉻𡡫𤇠𠞗𤇡𡊄𡒌𣼻燉𣼋𦄘炸邹㢸𠞻𠦻𡊻𣈻𡈻𣈛𡈛ꊺ𠆼𤂅𣻆𣫃𤮺𤊻𡉋㽻𣺬𣈛𡈋𤭻𤂲𣈻𤭻𤊼𢈛儛𡈛ᔺ
 
 This [fits comfortably in a Tweet](https://twitter.com/qntm/status/673523018224791552), with an extravagant 12 characters left over for your comment.
 
@@ -234,4 +231,6 @@ Several people have ported Base65536 from JavaScript to other programming langua
 * [Go](https://github.com/Nightbug/go-base65536)
 * [Ruby](https://github.com/Nightbug/base65536-ruby)
 * [PHP](https://github.com/hevertonfreitas/base65536)
-* [Unix shell](https://github.com/girst/base65536)
+* [C](https://github.com/girst/base65536)
+* [Rust](https://github.com/nuew/base65536)
+* [C#](https://github.com/cyberdot/base65536)
