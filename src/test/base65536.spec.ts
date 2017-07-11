@@ -1,6 +1,6 @@
 /** Tests for base65536, ensure strings survive round trips, etc. */
 
-/* eslint-env jasmine */
+'use strict'
 
 const base65536 = require('./../dist/base65536.js') // test the built JS file
 const base65536min = require('./../dist/base65536.min.js')
@@ -16,7 +16,7 @@ Object.keys(modules).forEach(function (moduleName) {
 
   describe(moduleName, function () {
     describe('success cases', function () {
-      const caseDir = './spec/pairs'
+      const caseDir = './data/pairs'
       let caseNames = [
         'demo',
         'firstDefect',
@@ -66,7 +66,7 @@ Object.keys(modules).forEach(function (moduleName) {
       })
 
       describe('ignoreGarbage', function () {
-        const caseDir = './spec/ignoreGarbage'
+        const caseDir = './data/ignoreGarbage'
         let caseNames = [
           'abc',
           'continuationAtEnd',
@@ -134,7 +134,7 @@ Object.keys(modules).forEach(function (moduleName) {
     })
 
     describe('failure cases', function () {
-      const caseDir = './spec/bad'
+      const caseDir = './data/bad'
       const caseNames = [
         'abc',
         'endOfStreamBeginsStream',

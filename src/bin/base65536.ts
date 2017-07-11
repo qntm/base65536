@@ -1,8 +1,12 @@
 'use strict'
 
+// base65536 --help
+// base65536 --version
+// base65536 (-d|--decode (-i|--ignoreGarbage)?)? (FILEN|--(FILE)?)?
+// FILEN: a file which isn't a flag (-.+)
+
 import * as fs from 'fs'
 
-import * as net from 'net'
 import Action from './action'
 import { createEncodeStream, createDecodeStream } from './../dist/base65536'
 import parse from './parse'
@@ -15,8 +19,8 @@ let config
 try {
   config = parse(args)
   if (config.action === Action.help) {
-    console.log(`
-Usage: base65536 [OPTION]... [FILE]
+    console.log(
+`Usage: base65536 [OPTION]... [FILE]
 Base65536 encode or decode FILE, or standard input, to standard output.
 
   -d, --decode          decode data
@@ -25,7 +29,8 @@ Base65536 encode or decode FILE, or standard input, to standard output.
       --version         output version information and exit
 
 With no FILE, or when FILE is -, read standard input.
-    `)
+`
+    )
   } else if (config.action === Action.version) {
     console.log('base65536@' + JSON.parse(fs.readFileSync('./package.json', 'utf8')).version)
   } else if (config.action === Action.encode) {

@@ -15,6 +15,7 @@
   },
   "files": [
     "src/dist/base65536.ts",
-    "src/bin/base65536.ts"
+    "src/bin/base65536.ts",
+    "src/test/base65536.spec.ts"
   ]
 }
