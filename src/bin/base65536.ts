@@ -1,10 +1,5 @@
 'use strict'
 
-// base65536 --help
-// base65536 --version
-// base65536 (-d|--decode (-i|--ignoreGarbage)?)? (FILEN|--(FILE)?)?
-// FILEN: a file which isn't a flag (-.+)
-
 import * as fs from 'fs'
 
 import Action from './action'

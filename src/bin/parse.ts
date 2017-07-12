@@ -1,72 +1,80 @@
 'use strict'
 
+import Action from './action'
+
 enum Consume {
   flags,
   oneMoreFileName,
   done
 }
 
-import Action from './action'
-
 // TODO: wrap support
-
-let consume: Consume = Consume.flags
-let action: Action = Action.unknown
-let ignoreGarbage = false
-let fileName: string|undefined = undefined
+interface Config {
+  action: Action,
+  ignoreGarbage: boolean,
+  fileName: string|undefined
+}
 
 export default function (args: string[]) {
+  let consume: Consume = Consume.flags
+
+  const config: Config = {
+    action: Action.unknown,
+    ignoreGarbage: false,
+    fileName: undefined
+  }
+
   args.forEach(arg => {
     if (consume === Consume.flags) {
       if (arg === '-d' || arg === '--decode') {
-        if (action !== Action.unknown) {
+        if (config.action !== Action.unknown) {
           throw Error('Unexpected ' + arg)
         }
-        action = Action.decode
+        config.action = Action.decode
       } else if (arg === '-i' || arg === '--ignore-garbage') {
-        if (action !== Action.decode) {
+        if (config.action !== Action.decode) {
           throw Error('Unexpected ' + arg)
         }
-        if (ignoreGarbage) {
+        if (config.ignoreGarbage) {
           throw Error('Unexpected ' + arg)
         }
-        ignoreGarbage = true
+        config.ignoreGarbage = true
       } else if (arg === '--help') {
-        if (action !== Action.unknown) {
+        if (config.action !== Action.unknown) {
           throw Error('Unexpected ' + arg)
         }
-        action = Action.help
+        config.action = Action.help
       } else if (arg === '--version') {
-        if (action !== Action.unknown) {
+        if (config.action !== Action.unknown) {
           throw Error('Unexpected ' + arg)
         }
-        action = Action.version
+        config.action = Action.version
       } else if (arg === '--') {
         consume = Consume.oneMoreFileName
       } else if (arg === '-') {
-        if (action === Action.help || action === Action.version) {
+        if (config.action === Action.help || config.action === Action.version) {
           throw Error('Unexpected ' + arg)
         }
         // leave fileName as `undefined` i.e. STDIN
         consume = Consume.done
       } else {
-        if (action === Action.help || action === Action.version) {
+        if (config.action === Action.help || config.action === Action.version) {
           throw Error('Unexpected ' + arg)
         }
-        fileName = arg
+        config.fileName = arg
         consume = Consume.done
       }
     } else if (consume === Consume.oneMoreFileName) {
-      fileName = arg
+      config.fileName = arg
       consume = Consume.done
     } else if (consume === Consume.done) {
       throw Error('Unexpected ' + arg)
     }
   })
 
-  if (action === Action.unknown) {
-    action = Action.encode
+  if (config.action === Action.unknown) {
+    config.action = Action.encode
   }
 
-  return {action, ignoreGarbage, fileName}
+  return config
 }
