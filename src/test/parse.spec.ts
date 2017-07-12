@@ -5,10 +5,7 @@
 import Action from './../bin/action'
 import parse from './../bin/parse'
 
-// base65536 (-d|--decode (-i|--ignoreGarbage)?)? (FILEN|--(FILE)?)?
-// FILEN: a file which isn't a flag (-.+)
-
-fdescribe('parse', function () {
+describe('parse', function () {
   it('helps', function () {
     expect(parse(['--help'])).toEqual({action: Action.help, ignoreGarbage: false, fileName: undefined})
   })
@@ -70,7 +67,7 @@ fdescribe('parse', function () {
     expect(parse(['--decode', '--ignore-garbage', '--', '-'])).toEqual({action: Action.decode, ignoreGarbage: true, fileName: '-'})
     expect(parse(['--decode', '--ignore-garbage', '--', '--'])).toEqual({action: Action.decode, ignoreGarbage: true, fileName: '--'})
   })
-  it('throws', function() {
+  it('throws', function () {
     expect(() => parse(['--help', '-'])).toThrow()
     expect(() => parse(['--help', '--decode'])).toThrow()
     expect(() => parse(['--help', '--help'])).toThrow()
