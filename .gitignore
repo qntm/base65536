@@ -51,6 +51,8 @@ Temporary Items
 node_modules
 dist
 bin
+test
 !src/dist
 !src/bin
+!src/test
 
