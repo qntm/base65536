@@ -1,6 +1,6 @@
 {
   "name": "base65536",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "description": "Unicode's answer to Base64",
   "homepage": "https://github.com/qntm/base65536",
   "repository": {
@@ -19,8 +19,9 @@
     "binary"
   ],
   "scripts": {
-    "build": "npm run tslint && npm run clean && npm run tsc && npm run uglify && npm run jasmine",
+    "build": "npm run tslint && npm run clean && npm run tsc && npm run uglify && npm run copy && npm run jasmine",
     "clean": "rimraf bin dist",
+    "copy": "cp src/bin/help.txt bin/help.txt",
     "tslint": "tslint --type-check --format verbose --project tsconfig.json --config tslint.json src/**/*.ts",
     "jasmine": "jasmine --config=jasmine.json",
     "prepublishOnly": "npm run build",

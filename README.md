@@ -98,13 +98,15 @@ For example, using Base64, up to 105 bytes of binary data can fit in a Tweet. Wi
 
 Base65536 uses only "safe" Unicode code points - no unassigned code points, no whitespace, no control characters, etc.. For details of how these code points were selected and why they are thought to be safe, see the sibling project [`base65536gen`](https://github.com/ferno/base65536gen).
 
-## Installation
+## Module
+
+### Installation
 
 ```bash
-npm install base65536
+$ npm install base65536
 ```
 
-## Usage
+### Usage
 
 ```js
 var base65536 = require('base65536');
@@ -118,13 +120,13 @@ var buf2 = base65536.decode(str);
 console.log(buf.equals(buf2)); // true
 ```
 
-## API
+### API
 
-### base65536.encode(buf)
+#### base65536.encode(buf)
 
 Encodes a [`Buffer`](https://nodejs.org/api/buffer.html#buffer_new_buffer_str_encoding) and returns a Base65536 `String`, suitable for passing safely through almost any "Unicode-clean" text-handling API. This string contains no special characters and is immune to Unicode normalization. The string encodes two bytes per code point.
 
-#### Note
+##### Note
 
 While you might expect that the `length` of the resulting string is half the `length` of the original buffer, this is only true when counting *Unicode code points*. In JavaScript, a string's `length` property reports not the number of code points but the number of *16-bit code units* in the string. For characters outside of the Basic Multilingual Plane, a [surrogate pair of 16-bit code units](https://en.wikipedia.org/wiki/UTF-16) is used to represent each code point. `base65536` makes extensive use of these characters: 37,376, or about 57%, of the 65,536 code points are chosen from these Supplementary Planes.
 
@@ -139,21 +141,21 @@ console.log(str.charCodeAt(1));      // 56831 = 0xDDFF
 console.log(str === '\uD861\uDDFF'); // true
 ```
 
-### base65536.createEncodeStream()
+#### base65536.createEncodeStream()
 
 Returns a new [`stream`](https://nodejs.org/api/stream.html) object which encodes binary data as Base65536.
 
-### base65536.decode(str[, ignoreGarbage])
+#### base65536.decode(str[, ignoreGarbage])
 
 Decodes a Base65536 `String` and returns a `Buffer` containing the original binary data.
 
 By default this function is very strict, with no tolerance for whitespace or other unexpected characters. An `Error` is thrown if the supplied string is not a valid Base65536 text, or if there is a "final byte" code point in the middle of the string. Set `ignoreGarbage` to `true` to ignore non-Base65536 characters (line breaks, spaces, alphanumerics, ...) in the input.
 
-### base65536.createDecodeStream([ignoreGarbage])
+#### base65536.createDecodeStream([ignoreGarbage])
 
 Returns a new [`stream`](https://nodejs.org/api/stream.html) object which decodes Base65536 to binary data. 
 
-## More examples
+### More examples
 
 ```js
 var hash = md5('');                 // "d41d8cd98f00b204e9800998ecf8427e", 32 hex digits
@@ -173,6 +175,48 @@ var address = new Address6('2001:db8:85a3::8a2e:370:7334'); // 32 hex digits
 var buf = new Buffer(address.toByteArray());                // <Buffer 20 01 ... 34>
 console.log(base65536.encode(buf));                         // "㔠𣸍𢦅㐀㐀掊𒄃楳", 8 chars
 ```
+
+## Command line
+
+### Installation
+
+```bash
+$ npm install --global base65536
+```
+
+### Usage
+
+```
+base65536 FILE
+base65536 --decode FILE
+base65536 --decode --ignore-garbage FILE
+
+base65536 --help
+base65536 --version
+```
+
+Flags:
+
+* `-d`, `--decode`: decode data
+* `-i`, `--ignore-garbage`: when decoding, ignore non-Base65536 characters
+
+If `FILE` is "-" or omitted, read standard input.
+
+### Examples
+
+```bash
+$ echo "hello world" | base65536
+驨ꍬ啯𒁷ꍲ㹤
+```
+
+Note the difference from `base65536.encode(Buffer.from('hello world'))`, which was `驨ꍬ啯𒁷ꍲᕤ`. This is because `echo` appended a `\n` to `hello world`.
+
+```bash
+$ echo -n "驨ꍬ啯𒁷ꍲ㹤" | base65536 --decode
+hello world
+```
+
+Here the `-n` flag suppresses the trailing `\n`, which would otherwise cause a decoding error since it is not valid Base65536. `base65536 -d -i` is another way around this.
 
 ## Why?
 
@@ -225,7 +269,7 @@ MIT
 
 ## In other languages
 
-Several people have ported Base65536 from JavaScript to other programming languages.
+This is a JavaScript implementation of the Base65536 encoding. There are other implementations:
 
 * [Python](https://github.com/Parkayun/base65536)
 * [Go](https://github.com/Nightbug/go-base65536)
@@ -234,3 +278,5 @@ Several people have ported Base65536 from JavaScript to other programming langua
 * [C](https://github.com/girst/base65536)
 * [Rust](https://github.com/nuew/base65536)
 * [C#](https://github.com/cyberdot/base65536)
+
+Planning an implementation of your own? You may find [these test case files](https://github.com/qntm/base65536-test)  useful.
