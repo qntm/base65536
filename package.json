@@ -1,6 +1,6 @@
 {
   "name": "base65536",
-  "version": "1.1.4",
+  "version": "1.1.32",
   "description": "Unicode's answer to Base64",
   "homepage": "https://github.com/qntm/base65536",
   "repository": {

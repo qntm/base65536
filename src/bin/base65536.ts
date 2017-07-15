@@ -20,7 +20,7 @@ try {
     const help = fs.readFileSync(__dirname + '/help.txt', 'utf8')
     console.log(help)
   } else if (config.action === Action.version) {
-    const packageDotJson = JSON.parse(fs.readFileSync(__dirname + '/package.json', 'utf8'))
+    const packageDotJson = JSON.parse(fs.readFileSync(__dirname + '/../package.json', 'utf8'))
     console.log(packageDotJson.name + '@' + packageDotJson.version)
   } else if (config.action === Action.encode) {
     const readableStream = config.fileName === undefined ? process.stdin : fs.createReadStream(config.fileName)

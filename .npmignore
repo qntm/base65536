@@ -1,5 +1,5 @@
 *
-!bin
-!dist
+!bin/**/*
+!dist/**/*
 !package.json
 !README.md
