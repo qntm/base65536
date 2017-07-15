@@ -52,3 +52,10 @@ node_modules
 src
 data
 test
+.editorconfig
+.gitattributes
+.gitignore
+.npmignore
+jasmine.json
+tsconfig.json
+tslint.json

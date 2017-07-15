@@ -16,7 +16,7 @@ Object.keys(modules).forEach(function (moduleName) {
 
   describe(moduleName, function () {
     describe('success cases', function () {
-      const caseDir = './data/pairs'
+      const caseDir = './node_modules/base65536-test/data/pairs'
       let caseNames = [
         'demo',
         'firstDefect',
@@ -66,7 +66,7 @@ Object.keys(modules).forEach(function (moduleName) {
       })
 
       describe('ignoreGarbage', function () {
-        const caseDir = './data/ignoreGarbage'
+        const caseDir = './node_modules/base65536-test/data/ignoreGarbage'
         let caseNames = [
           'abc',
           'continuationAtEnd',
@@ -134,7 +134,7 @@ Object.keys(modules).forEach(function (moduleName) {
     })
 
     describe('failure cases', function () {
-      const caseDir = './data/bad'
+      const caseDir = './node_modules/base65536-test/data/bad'
       const caseNames = [
         'abc',
         'endOfStreamBeginsStream',

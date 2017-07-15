@@ -1,5 +1,0 @@
-Here is your Base65536 string for today:
-
-	'"<[(驨ꍬ啯𒁷ꍲᕤ)]>"'
-
-Hope this helps!
