@@ -164,16 +164,20 @@ console.log(base65536.encode(buf)); // "勔𥾌㒏㢲𠛩𡸉𧻬𠑂", 8 chars
 ```
 
 ```js
-var uuid = '8eb44f6c-2505-4446-aa57-22d6897c9922';   // 32 hex digits
-var buf = new Buffer(uuid.replace(/-/g, ''), 'hex'); // <Buffer 8e b4 ... 22>
-console.log(base65536.encode(buf));                  // "𣪎ꍏ㤥筄貪𥰢𠊉垙", 8 chars
-```
-
-```js
 var Address6 = require('ip-address').Address6;
 var address = new Address6('2001:db8:85a3::8a2e:370:7334'); // 32 hex digits
 var buf = new Buffer(address.toByteArray());                // <Buffer 20 01 ... 34>
 console.log(base65536.encode(buf));                         // "㔠𣸍𢦅㐀㐀掊𒄃楳", 8 chars
+```
+
+```js
+var uuid = '8eb44f6c-2505-4446-aa57-22d6897c9922';
+var str = uuid
+  .split('-')
+  .map(chunk => new Buffer(chunk, 'hex')
+  .map(base65536.encode)
+  .join('-');
+console.log(str); // "𣪎ꍏ-㤥-筄-貪-𥰢𠊉垙"
 ```
 
 ## Command line
