@@ -128,7 +128,7 @@ Encodes a [`Buffer`](https://nodejs.org/api/buffer.html#buffer_new_buffer_str_en
 
 If `wrap` is set, a `\n` will be inserted between every `wrap` Unicode characters of output. Suggested value: 140.
 
-#### base65536.createEncodeStream()
+#### base65536.createEncodeStream([wrap])
 
 Returns a new [`stream`](https://nodejs.org/api/stream.html) object which encodes binary data as Base65536.
 
