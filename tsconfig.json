@@ -11,7 +11,8 @@
     "strictNullChecks": true,
     "outDir": ".",
     "noImplicitAny": false,
-    "sourceMap": false
+    "sourceMap": false,
+    "lib": ["es2015"]
   },
   "files": [
     "src/dist/base65536.ts",

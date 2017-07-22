@@ -122,24 +122,11 @@ console.log(buf.equals(buf2)); // true
 
 ### API
 
-#### base65536.encode(buf)
+#### base65536.encode(buf[, wrap])
 
 Encodes a [`Buffer`](https://nodejs.org/api/buffer.html#buffer_new_buffer_str_encoding) and returns a Base65536 `String`, suitable for passing safely through almost any "Unicode-clean" text-handling API. This string contains no special characters and is immune to Unicode normalization. The string encodes two bytes per code point.
 
-##### Note
-
-While you might expect that the `length` of the resulting string is half the `length` of the original buffer, this is only true when counting *Unicode code points*. In JavaScript, a string's `length` property reports not the number of code points but the number of *16-bit code units* in the string. For characters outside of the Basic Multilingual Plane, a [surrogate pair of 16-bit code units](https://en.wikipedia.org/wiki/UTF-16) is used to represent each code point. `base65536` makes extensive use of these characters: 37,376, or about 57%, of the 65,536 code points are chosen from these Supplementary Planes.
-
-As a worked example:
-
-```js
-var buf = Buffer.from([255, 255]);    // two bytes
-var str = base65536.encode(buf);     // "𨗿", one code point, U+285FF
-console.log(str.length);             // 2, two 16-bit code units
-console.log(str.charCodeAt(0));      // 55393 = 0xD861
-console.log(str.charCodeAt(1));      // 56831 = 0xDDFF
-console.log(str === '\uD861\uDDFF'); // true
-```
+If `wrap` is set, a `\n` will be inserted between every `wrap` Unicode characters of output. Suggested value: 140.
 
 #### base65536.createEncodeStream()
 
@@ -192,6 +179,7 @@ $ npm install --global base65536
 
 ```
 base65536 FILE
+base65536 --wrap LENGTH FILE
 base65536 --decode FILE
 base65536 --decode --ignore-garbage FILE
 
@@ -201,6 +189,7 @@ base65536 --version
 
 Flags:
 
+* `-w`, `--wrap`: wrap encoded output every LENGTH characters. Defaults to 38. Use 0 to disable
 * `-d`, `--decode`: decode data
 * `-i`, `--ignore-garbage`: when decoding, ignore non-Base65536 characters
 

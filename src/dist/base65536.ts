@@ -55,6 +55,19 @@ const spreadString = function (str: string) {
   return codePoints
 }
 
+const unspreadString = function (codePoints: number[]) {
+  return codePoints.map(function (codePoint) {
+    if (codePoint < bmpThreshold) {
+      return String.fromCharCode(codePoint)
+    }
+
+    // UTF-16 post-BMP encode
+    const first = high + ((codePoint - bmpThreshold) / offset)
+    const second = low + (codePoint % offset)
+    return String.fromCharCode(first) + String.fromCharCode(second)
+  }).join('')
+}
+
 const paddingBlockStart = spreadString('ᔀ')[0]
 const blockStarts = spreadString(
   '㐀㔀㘀㜀㠀㤀㨀㬀㰀㴀㸀㼀䀀䄀䈀䌀' +
@@ -89,27 +102,19 @@ for (let b = 0; b < possibleBytes; b++) {
   b2s[blockStarts[b]] = b
 }
 
-const unspreadString = function (codePoints: number[]) {
-  return codePoints.map(function (codePoint) {
-    if (codePoint < bmpThreshold) {
-      return String.fromCharCode(codePoint)
-    }
-
-    // UTF-16 post-BMP encode
-    const first = high + ((codePoint - bmpThreshold) / offset)
-    const second = low + (codePoint % offset)
-    return String.fromCharCode(first) + String.fromCharCode(second)
-  }).join('')
-}
-
 // Returns a new Transform (i.e. Duplex, i.e. both writable and readable)
 // stream which accepts `Buffer` chunks as input and returns `String`
 // chunks as output. Main new wrinkle introduced here is the need to
 // retain one input byte for the next call in the event of odd-length
 // inputs.
-export const createEncodeStream = function () {
+export const createEncodeStream = function (wrap: number = Infinity) {
 
   let oddByte: undefined|number
+
+  // Track this so we can add "\n" now and then. Note that we DO NOT
+  // add one final trailing "\n", ever, not even if there is a round
+  // number of output code points.
+  let numCodePoints: number = 0
 
   return new Transform({
     transform (chunk: Buffer, _encoding, callback) {
@@ -118,7 +123,11 @@ export const createEncodeStream = function () {
         if (oddByte === undefined) {
           oddByte = chunk[i]
         } else {
+          if (numCodePoints % wrap === 0 && numCodePoints !== 0) {
+            codePoints.push(0x0A)
+          }
           codePoints.push(blockStarts[chunk[i]] + oddByte)
+          numCodePoints++
           oddByte = undefined
         }
       }
@@ -128,7 +137,11 @@ export const createEncodeStream = function () {
     flush (callback) {
       const codePoints: number[] = []
       if (oddByte !== undefined) {
+        if (numCodePoints % wrap === 0 && numCodePoints !== 0) {
+          codePoints.push(0x0A)
+        }
         codePoints.push(paddingBlockStart + oddByte)
+        numCodePoints++
         oddByte = undefined
       }
       callback(null, unspreadString(codePoints))
@@ -138,15 +151,15 @@ export const createEncodeStream = function () {
 
 // Encode the supplied `Buffer` and return the resulting Base65536
 // string.
-export const encode = function (buf: Buffer) {
-  const encodeStream = module.exports.createEncodeStream()
-  let str = ''
+export const encode = function (buf: Buffer, wrap: number = Infinity) {
+  const encodeStream = createEncodeStream(wrap)
+  const strs: string[] = []
   encodeStream.on('data', function (chunk: string) {
-    str += chunk
+    strs.push(chunk)
   })
   encodeStream.write(buf)
   encodeStream.end()
-  return str
+  return strs.join('')
 }
 
 // Returns a new Transform (i.e. Duplex, i.e. both writable and readable)
@@ -189,7 +202,7 @@ export const createDecodeStream = function (ignoreGarbage: boolean = false) {
 }
 
 export const decode = function (str: string, ignoreGarbage: boolean = false) {
-  const decodeStream = module.exports.createDecodeStream(ignoreGarbage)
+  const decodeStream = createDecodeStream(ignoreGarbage)
   const buffers: Buffer[] = []
   decodeStream.on('data', function (chunk: Buffer) {
     buffers.push(chunk)

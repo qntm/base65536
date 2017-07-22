@@ -25,7 +25,7 @@ try {
   } else if (config.action === Action.encode) {
     const readableStream = config.fileName === undefined ? process.stdin : fs.createReadStream(config.fileName)
     readableStream
-      .pipe(createEncodeStream())
+      .pipe(createEncodeStream(config.wrap))
       .pipe(process.stdout)
   } else if (config.action === Action.decode) {
     if (config.fileName === undefined) {
