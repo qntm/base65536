@@ -1,0 +1,17 @@
+Base65536-encode or -decode a file, or standard input, to standard output.
+
+  base65536 FILE
+  base65536 --wrap LENGTH FILE
+  base65536 --decode FILE
+  base65536 --decode --ignore-garbage FILE
+
+  base65536 --help
+  base65536 --version
+
+Flags:
+
+  -w, --wrap LENGTH     wrap encoded output every LENGTH characters. Defaults to 38. Use 0 to disable
+  -d, --decode          decode data
+  -i, --ignore-garbage  when decoding, ignore non-Base65536 characters
+
+If `FILE` is "-" or omitted, read standard input.

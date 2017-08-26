@@ -32,6 +32,7 @@ try {
       // TODO: work out what type this actually has (error message says "Socket" but
       // that's not it) and why it's not compatible with ReadableStream so we have
       // to duplicate code here -_-
+      // TODO: the command line should ALWAYS ignore line breaks, like `base64` does.
       const readableStream = process.stdin
       readableStream
         .setEncoding('utf8')

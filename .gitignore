@@ -1,11 +1,4 @@
-*
-!src
-!.editorconfig
-!.gitattributes
-!.gitignore
-!.npmignore
-!jasmine.json
-!package.json
-!README.md
-!tsconfig.json
-!tslint.json
+/bin
+/dist
+/node_modules
+/test
