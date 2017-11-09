@@ -96,7 +96,7 @@ Efficiency ratings are averaged over long inputs. Higher is better.
 
 For example, using Base64, up to 105 bytes of binary data can fit in a Tweet. With Base65536, 280 bytes are possible.
 
-Base65536 uses only "safe" Unicode code points - no unassigned code points, no whitespace, no control characters, etc.. For details of how these code points were selected and why they are thought to be safe, see the sibling project [`base65536gen`](https://github.com/ferno/base65536gen).
+Base65536 uses only ["safe" Unicode code points](https://qntm.org/safe) - no unassigned code points, no whitespace, no control characters, etc..
 
 ## Module
 
