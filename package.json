@@ -1,6 +1,6 @@
 {
   "name": "base65536",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Unicode's answer to Base64",
   "homepage": "https://github.com/qntm/base65536",
   "repository": {
@@ -28,7 +28,6 @@
     "test": "npm run build",
     "tsc": "tsc"
   },
-  "dependencies": [],
   "author": "qntm",
   "license": "MIT",
   "devDependencies": {
@@ -40,5 +39,8 @@
     "tslint": "^5.5.0",
     "tslint-config-standard": "^6.0.1",
     "typescript": "^2.4.1"
+  },
+  "dependencies": {
+    "base65536-stream": "^6.55.36"
   }
 }

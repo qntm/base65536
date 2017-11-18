@@ -5,7 +5,7 @@
 import * as fs from 'fs'
 
 import Action from './action'
-import { createEncodeStream, createDecodeStream } from './../dist/base65536'
+import { createEncodeStream, createDecodeStream } from 'base65536-stream'
 
 import parse from './parse'
 
