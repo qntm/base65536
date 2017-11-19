@@ -219,7 +219,7 @@ I wanted people to be able to share [HATETRIS](http://qntm.org/files/hatetris/ha
 
 Twitter supports tweets of up to 140 characters. "[Tweet length is measured by the number of codepoints in the NFC normalized version of the text.](https://dev.twitter.com/overview/api/counting-characters)"
 
-HATETRIS has four buttons: left, right, down and rotate. A single move in HATERIS therefore encodes two bits of information. At present, replays are encoded as hexadecimal and spaced for legibility/selectability. Although a game of HATETRIS may extend for an arbitrary number of keystrokes (simply press rotate forever), in general, the longer the game goes on, the higher one's score.
+HATETRIS has four buttons: left, right, down and rotate. A single move in HATETRIS therefore encodes two bits of information. At present, replays are encoded as hexadecimal and spaced for legibility/selectability. Although a game of HATETRIS may extend for an arbitrary number of keystrokes (simply press rotate forever), in general, the longer the game goes on, the higher one's score.
 
 The world record HATETRIS replay (30 points) is 1,440 keystrokes = 2,880 bits long. At present, HATETRIS replays are encoded as hexadecimal, with each hexadecimal digit encoding 4 bits = 2 keystrokes, and spaces added for clarity/legibility, then presented as text, like so:
 
