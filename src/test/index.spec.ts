@@ -2,8 +2,21 @@
 
 'use strict'
 
-const base65536 = require('./../dist/base65536.js') // test the built JS file
+const base65536 = require('./../lib/index.js') // test the built JS file
 const fs = require('fs')
+
+const arrayBuffersEqual = (expected, actual) => {
+  expected = new Uint8Array(expected)
+  actual = new Uint8Array(actual)
+
+  expect(actual.length).toBe(expected.length)
+
+  for (let i = 0; i < actual.byteLength; i++) {
+    const expectedByte = expected[i]
+    const actualByte = actual[i]
+    expect(actualByte).toBe(expectedByte)
+  }
+}
 
 describe('base65536', function () {
   describe('success cases', function () {
@@ -36,7 +49,7 @@ describe('base65536', function () {
         const textFileName = caseName + '.txt'
 
         it(binaryFileName + ' to ' + textFileName, function () {
-          const binary = fs.readFileSync(binaryFileName)
+          const binary = new Uint8Array(fs.readFileSync(binaryFileName)).buffer
           const text = fs.readFileSync(textFileName, 'utf8')
           expect(base65536.encode(binary)).toBe(text)
         })
@@ -50,8 +63,8 @@ describe('base65536', function () {
 
         it(textFileName + ' to ' + binaryFileName, function () {
           const text = fs.readFileSync(textFileName, 'utf8')
-          const binary = fs.readFileSync(binaryFileName)
-          expect(base65536.decode(text).equals(binary)).toBe(true)
+          const binary = new Uint8Array(fs.readFileSync(binaryFileName)).buffer
+          arrayBuffersEqual(binary, base65536.decode(text))
         })
       })
     })
@@ -103,8 +116,8 @@ describe('base65536', function () {
           const binaryFileName = caseName + '.bin'
           it('successfully decodes ' + textFileName, function () {
             const text = fs.readFileSync(textFileName, 'utf8')
-            const binary = fs.readFileSync(binaryFileName)
-            expect(base65536.decode(text, true).equals(binary)).toBe(true)
+            const binary = new Uint8Array(fs.readFileSync(binaryFileName)).buffer
+            arrayBuffersEqual(binary, base65536.decode(text, true))
           })
         })
       })
@@ -138,9 +151,9 @@ describe('base65536', function () {
             const binaryFileName = caseName + '.bin'
             it(textFileName + ' to ' + binaryFileName, function () {
               const text = fs.readFileSync(textFileName, 'utf8')
-              const binary = fs.readFileSync(binaryFileName)
+              const binary = new Uint8Array(fs.readFileSync(binaryFileName)).buffer
               expect(base65536.encode(binary, wrapCase.wrap)).toBe(text)
-              expect(base65536.decode(text, true).equals(binary)).toBe(true)
+              arrayBuffersEqual(binary, base65536.decode(text, true))
             })
           })
         })

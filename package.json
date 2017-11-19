@@ -1,14 +1,13 @@
 {
   "name": "base65536",
-  "version": "1.2.2",
+  "version": "2.0.0",
   "description": "Unicode's answer to Base64",
   "homepage": "https://github.com/qntm/base65536",
   "repository": {
     "type": "git",
     "url": "git://github.com/qntm/base65536.git"
   },
-  "main": "dist/base65536.js",
-  "bin": "bin/base65536.js",
+  "main": "built/lib/index.js",
   "keywords": [
     "base64",
     "base65536",
@@ -19,14 +18,13 @@
     "binary"
   ],
   "scripts": {
-    "build": "npm run tslint && npm run clean && npm run tsc && npm run copy && npm run jasmine",
-    "clean": "rimraf bin dist",
-    "copy": "cp src/bin/help.txt bin/help.txt",
+    "build": "npm run tslint && npm run clean && npm run tsc && npm run jasmine",
+    "clean": "rimraf bin built",
     "tslint": "tslint --type-check --format verbose --project tsconfig.json --config tslint.json src/**/*.ts",
     "jasmine": "jasmine --config=jasmine.json",
     "prepublishOnly": "npm run build",
     "test": "npm run build",
-    "tsc": "tsc"
+    "tsc": "tsc --outDir built"
   },
   "author": "qntm",
   "license": "MIT",

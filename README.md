@@ -5,211 +5,132 @@ Base65536 is a binary encoding optimised for UTF-32-encoded text and Twitter. Th
 Efficiency ratings are averaged over long inputs. Higher is better.
 
 <table>
-	<thead>
-		<tr>
-			<th colspan="2" rowspan="2">Encoding</th>
-			<th rowspan="2">Implementation</th>
-			<th colspan="3">Efficiency</th>
-		</tr>
-		<tr>
-			<th>UTF&#x2011;8</th>
-			<th>UTF&#x2011;16</th>
-			<th>UTF&#x2011;32</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td rowspan="5">ASCII&#x2011;constrained</td>
-			<td>Unary</td>
-			<td><code><a href="https://github.com/ferno/base1">base1</a></code></td>
-			<td style="text-align: right;">0%</td>
-			<td style="text-align: right;">0%</td>
-			<td style="text-align: right;">0%</td>
-		</tr>
-		<tr>
-			<td>Binary</td>
-			<td>everywhere</td>
-			<td style="text-align: right;">13%</td>
-			<td style="text-align: right;">6%</td>
-			<td style="text-align: right;">3%</td>
-		</tr>
-		<tr>
-			<td>Hexadecimal</td>
-			<td>everywhere</td>
-			<td style="text-align: right;">50%</td>
-			<td style="text-align: right;">25%</td>
-			<td style="text-align: right;">13%</td>
-		</tr>
-		<tr>
-			<td>Base64</td>
-			<td>everywhere</td>
-			<td style="text-align: right;">75%</td>
-			<td style="text-align: right;">38%</td>
-			<td style="text-align: right;">19%</td>
-		</tr>
-		<tr>
-			<td>Base85</td>
-			<td>everywhere</td>
-			<td style="text-align: right;"><strong>80%</strong></td>
-			<td style="text-align: right;">40%</td>
-			<td style="text-align: right;">20%</td>
-		</tr>
-		<tr>
-			<td rowspan="3">BMP&#x2011;constrained</td>
-			<td>HexagramEncode</td>
-			<td><code><a href="https://github.com/ferno/hexagram-encode">hexagram-encode</a></code></td>
-			<td style="text-align: right;">25%</td>
-			<td style="text-align: right;">38%</td>
-			<td style="text-align: right;">19%</td>
-		</tr>
-		<tr>
-			<td>BrailleEncode</td>
-			<td><code><a href="https://github.com/ferno/braille-encode">braille-encode</a></code></td>
-			<td style="text-align: right;">33%</td>
-			<td style="text-align: right;">50%</td>
-			<td style="text-align: right;">25%</td>
-		</tr>
-		<tr>
-			<td>Base32768</td>
-			<td><code><a href="https://github.com/ferno/base32768">base32768</a></code></td>
-			<td style="text-align: right;">63%</td>
-			<td style="text-align: right;"><strong>94%</strong></td>
-			<td style="text-align: right;">47%</td>
-		</tr>
-		<tr>
-			<td rowspan="2">Full Unicode</td>
-			<td>Base65536</td>
-			<td><code><a href="https://github.com/ferno/base65536">base65536</a></code></td>
-			<td style="text-align: right;">56%</td>
-			<td style="text-align: right;">64%</td>
-			<td style="text-align: right;"><strong>50%</strong></td>
-		</tr>
-		<tr>
-			<td>Base131072</td>
-			<td><code><a href="https://github.com/ferno/base131072">base131072</a></code> (prototype)</td>
-			<td style="text-align: right;">53%+</td>
-			<td style="text-align: right;">53%+</td>
-			<td style="text-align: right;">53%</td>
-		</tr>
-	</tbody>
+  <thead>
+    <tr>
+      <th colspan="2" rowspan="2">Encoding</th>
+      <th rowspan="2">Implementation</th>
+      <th colspan="3">Efficiency</th>
+    </tr>
+    <tr>
+      <th>UTF&#x2011;8</th>
+      <th>UTF&#x2011;16</th>
+      <th>UTF&#x2011;32</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="5">ASCII&#x2011;constrained</td>
+      <td>Unary</td>
+      <td><code><a href="https://github.com/ferno/base1">base1</a></code></td>
+      <td style="text-align: right;">0%</td>
+      <td style="text-align: right;">0%</td>
+      <td style="text-align: right;">0%</td>
+    </tr>
+    <tr>
+      <td>Binary</td>
+      <td>everywhere</td>
+      <td style="text-align: right;">13%</td>
+      <td style="text-align: right;">6%</td>
+      <td style="text-align: right;">3%</td>
+    </tr>
+    <tr>
+      <td>Hexadecimal</td>
+      <td>everywhere</td>
+      <td style="text-align: right;">50%</td>
+      <td style="text-align: right;">25%</td>
+      <td style="text-align: right;">13%</td>
+    </tr>
+    <tr>
+      <td>Base64</td>
+      <td>everywhere</td>
+      <td style="text-align: right;">75%</td>
+      <td style="text-align: right;">38%</td>
+      <td style="text-align: right;">19%</td>
+    </tr>
+    <tr>
+      <td>Base85</td>
+      <td>everywhere</td>
+      <td style="text-align: right;"><strong>80%</strong></td>
+      <td style="text-align: right;">40%</td>
+      <td style="text-align: right;">20%</td>
+    </tr>
+    <tr>
+      <td rowspan="3">BMP&#x2011;constrained</td>
+      <td>HexagramEncode</td>
+      <td><code><a href="https://github.com/ferno/hexagram-encode">hexagram-encode</a></code></td>
+      <td style="text-align: right;">25%</td>
+      <td style="text-align: right;">38%</td>
+      <td style="text-align: right;">19%</td>
+    </tr>
+    <tr>
+      <td>BrailleEncode</td>
+      <td><code><a href="https://github.com/ferno/braille-encode">braille-encode</a></code></td>
+      <td style="text-align: right;">33%</td>
+      <td style="text-align: right;">50%</td>
+      <td style="text-align: right;">25%</td>
+    </tr>
+    <tr>
+      <td>Base32768</td>
+      <td><code><a href="https://github.com/ferno/base32768">base32768</a></code></td>
+      <td style="text-align: right;">63%</td>
+      <td style="text-align: right;"><strong>94%</strong></td>
+      <td style="text-align: right;">47%</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Full Unicode</td>
+      <td>Base65536</td>
+      <td><code><a href="https://github.com/ferno/base65536">base65536</a></code></td>
+      <td style="text-align: right;">56%</td>
+      <td style="text-align: right;">64%</td>
+      <td style="text-align: right;"><strong>50%</strong></td>
+    </tr>
+    <tr>
+      <td>Base131072</td>
+      <td><code><a href="https://github.com/ferno/base131072">base131072</a></code> (prototype)</td>
+      <td style="text-align: right;">53%+</td>
+      <td style="text-align: right;">53%+</td>
+      <td style="text-align: right;">53%</td>
+    </tr>
+  </tbody>
 </table>
 
 For example, using Base64, up to 105 bytes of binary data can fit in a Tweet. With Base65536, 280 bytes are possible.
 
 Base65536 uses only ["safe" Unicode code points](https://qntm.org/safe) - no unassigned code points, no whitespace, no control characters, etc..
 
-## Module
-
-### Installation
+## Installation
 
 ```bash
 $ npm install base65536
 ```
 
-### Usage
+## Usage
 
 ```js
-var base65536 = require('base65536');
+const base65536 = require('base65536')
 
-var buf = Buffer.from('hello world', 'utf-8'); // 11 bytes
+const uint8Array = new Uint8Array([104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100])
 
-var str = base65536.encode(buf); 
-console.log(str); // 6 code points, '驨ꍬ啯𒁷ꍲᕤ'
+const string = base65536.encode(uint8Array.buffer); 
+console.log(string); // 6 code points, '驨ꍬ啯𒁷ꍲᕤ'
 
-var buf2 = base65536.decode(str);
-console.log(buf.equals(buf2)); // true
+const uint8Array2 = new Uint8Array(base65536.decode(string));
+console.log(uint8Array2); // [104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100]
 ```
 
-### API
+## API
 
-#### base65536.encode(buf[, wrap])
+### base65536.encode(arrayBuffer[, wrap])
 
-Encodes a [`Buffer`](https://nodejs.org/api/buffer.html#buffer_new_buffer_str_encoding) and returns a Base65536 `String`, suitable for passing safely through almost any "Unicode-clean" text-handling API. This string contains no special characters and is immune to Unicode normalization. The string encodes two bytes per code point.
+Encodes an [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) and returns a Base65536 `String`, suitable for passing safely through almost any "Unicode-clean" text-handling API. This string contains no special characters and is immune to Unicode normalization. The string encodes two bytes per code point.
 
 If `wrap` is set, a `\n` will be inserted between every `wrap` Unicode characters of output. Suggested value: 140.
 
-#### base65536.createEncodeStream([wrap])
+### base65536.decode(string[, ignoreGarbage])
 
-Returns a new [`stream`](https://nodejs.org/api/stream.html) object which encodes binary data as Base65536.
-
-#### base65536.decode(str[, ignoreGarbage])
-
-Decodes a Base65536 `String` and returns a `Buffer` containing the original binary data.
+Decodes a Base65536 `String` and returns an `ArrayBuffer` containing the original binary data.
 
 By default this function is very strict, with no tolerance for whitespace or other unexpected characters. An `Error` is thrown if the supplied string is not a valid Base65536 text, or if there is a "final byte" code point in the middle of the string. Set `ignoreGarbage` to `true` to ignore non-Base65536 characters (line breaks, spaces, alphanumerics, ...) in the input.
-
-#### base65536.createDecodeStream([ignoreGarbage])
-
-Returns a new [`stream`](https://nodejs.org/api/stream.html) object which decodes Base65536 to binary data. 
-
-### More examples
-
-```js
-var hash = md5('');                 // "d41d8cd98f00b204e9800998ecf8427e", 32 hex digits
-var buf = new Buffer(hash, 'hex');  // <Buffer d4 1d ... 7e>
-console.log(base65536.encode(buf)); // "勔𥾌㒏㢲𠛩𡸉𧻬𠑂", 8 chars
-```
-
-```js
-var Address6 = require('ip-address').Address6;
-var address = new Address6('2001:db8:85a3::8a2e:370:7334'); // 32 hex digits
-var buf = new Buffer(address.toByteArray());                // <Buffer 20 01 ... 34>
-console.log(base65536.encode(buf));                         // "㔠𣸍𢦅㐀㐀掊𒄃楳", 8 chars
-```
-
-```js
-var uuid = '8eb44f6c-2505-4446-aa57-22d6897c9922';
-var str = uuid
-  .split('-')
-  .map(chunk => new Buffer(chunk, 'hex')
-  .map(base65536.encode)
-  .join('-');
-console.log(str); // "𣪎ꍏ-㤥-筄-貪-𥰢𠊉垙"
-```
-
-## Command line
-
-### Installation
-
-```bash
-$ npm install --global base65536
-```
-
-### Usage
-
-```
-base65536 FILE
-base65536 --wrap LENGTH FILE
-base65536 --decode FILE
-base65536 --decode --ignore-garbage FILE
-
-base65536 --help
-base65536 --version
-```
-
-Flags:
-
-* `-w`, `--wrap`: wrap encoded output every LENGTH characters. Defaults to 38. Use 0 to disable
-* `-d`, `--decode`: decode data
-* `-i`, `--ignore-garbage`: when decoding, ignore non-Base65536 characters
-
-If `FILE` is "-" or omitted, read standard input.
-
-### Examples
-
-```bash
-$ echo "hello world" | base65536
-驨ꍬ啯𒁷ꍲ㹤
-```
-
-Note the difference from `base65536.encode(Buffer.from('hello world'))`, which was `驨ꍬ啯𒁷ꍲᕤ`. This is because `echo` appended a `\n` to `hello world`.
-
-```bash
-$ echo -n "驨ꍬ啯𒁷ꍲ㹤" | base65536 --decode
-hello world
-```
-
-Here the `-n` flag suppresses the trailing `\n`, which would otherwise cause a decoding error since it is not valid Base65536. `base65536 -d -i` is another way around this.
 
 ## Why?
 
