@@ -161,3 +161,5 @@ export const decode = (str: string, ignoreGarbage: boolean = false) => {
 
   return arrayBuffer
 }
+
+export default {encode, decode}

@@ -2,8 +2,9 @@
 
 'use strict'
 
-const base65536 = require('./../lib/index.js') // test the built JS file
-const fs = require('fs')
+import * as fs from 'fs'
+
+import base65536 from './../lib/index' // test the built JS file
 
 const arrayBuffersEqual = (expected, actual) => {
   expected = new Uint8Array(expected)
