@@ -77,7 +77,14 @@ Efficiency ratings are averaged over long inputs. Higher is better.
       <td style="text-align: right;">47%</td>
     </tr>
     <tr>
-      <td rowspan="2">Full Unicode</td>
+      <td rowspan="3">Full Unicode</td>
+      <td>Ecoji</td>
+      <td><code><a href="https://github.com/keith-turner/ecoji">ecoji</a></code></td>
+      <td style="text-align: right;">31%</td>
+      <td style="text-align: right;">31%</td>
+      <td style="text-align: right;">31%</td>
+    </tr>
+    <tr>
       <td>Base65536</td>
       <td><code><a href="https://github.com/ferno/base65536">base65536</a></code></td>
       <td style="text-align: right;">56%</td>
