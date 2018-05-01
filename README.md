@@ -8,8 +8,8 @@ Efficiency ratings are averaged over long inputs. Higher is better.
   <thead>
     <tr>
       <th colspan="2" rowspan="2">Encoding</th>
-      <th rowspan="2">Implementation</th>
       <th colspan="3">Efficiency</th>
+      <th rowspan="2">Bytes per Tweet</th>
     </tr>
     <tr>
       <th>UTF&#x2011;8</th>
@@ -20,83 +20,90 @@ Efficiency ratings are averaged over long inputs. Higher is better.
   <tbody>
     <tr>
       <td rowspan="5">ASCII&#x2011;constrained</td>
-      <td>Unary</td>
-      <td><code><a href="https://github.com/ferno/base1">base1</a></code></td>
+      <td>Unary / <a href="https://github.com/ferno/base1">Base1</a></td>
       <td style="text-align: right;">0%</td>
       <td style="text-align: right;">0%</td>
       <td style="text-align: right;">0%</td>
+      <td style="text-align: right;">1</td>
     </tr>
     <tr>
       <td>Binary</td>
-      <td>everywhere</td>
       <td style="text-align: right;">13%</td>
       <td style="text-align: right;">6%</td>
       <td style="text-align: right;">3%</td>
+      <td style="text-align: right;">35</td>
     </tr>
     <tr>
       <td>Hexadecimal</td>
-      <td>everywhere</td>
       <td style="text-align: right;">50%</td>
       <td style="text-align: right;">25%</td>
       <td style="text-align: right;">13%</td>
+      <td style="text-align: right;">140</td>
     </tr>
     <tr>
       <td>Base64</td>
-      <td>everywhere</td>
       <td style="text-align: right;">75%</td>
       <td style="text-align: right;">38%</td>
       <td style="text-align: right;">19%</td>
+      <td style="text-align: right;">210</td>
     </tr>
     <tr>
       <td>Base85</td>
-      <td>everywhere</td>
       <td style="text-align: right;"><strong>80%</strong></td>
       <td style="text-align: right;">40%</td>
       <td style="text-align: right;">20%</td>
+      <td style="text-align: right;">224</td>
     </tr>
     <tr>
-      <td rowspan="3">BMP&#x2011;constrained</td>
-      <td>HexagramEncode</td>
-      <td><code><a href="https://github.com/ferno/hexagram-encode">hexagram-encode</a></code></td>
+      <td rowspan="4">BMP&#x2011;constrained</td>
+      <td><a href="https://github.com/ferno/hexagram-encode">HexagramEncode</a></td>
       <td style="text-align: right;">25%</td>
       <td style="text-align: right;">38%</td>
       <td style="text-align: right;">19%</td>
+      <td style="text-align: right;">105</td>
     </tr>
     <tr>
-      <td>BrailleEncode</td>
-      <td><code><a href="https://github.com/ferno/braille-encode">braille-encode</a></code></td>
+      <td><a href="https://github.com/ferno/braille-encode">BrailleEncode</a></td>
       <td style="text-align: right;">33%</td>
       <td style="text-align: right;">50%</td>
       <td style="text-align: right;">25%</td>
+      <td style="text-align: right;">140</td>
     </tr>
     <tr>
-      <td>Base32768</td>
-      <td><code><a href="https://github.com/ferno/base32768">base32768</a></code></td>
+      <td><a href="https://github.com/qntm/base2048">Base2048</a></td>
+      <td style="text-align: right;">56%</td>
+      <td style="text-align: right;">69%</td>
+      <td style="text-align: right;">34%</td>
+      <td style="text-align: right;"><strong>385</strong></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/ferno/base32768">Base32768</a></td>
       <td style="text-align: right;">63%</td>
       <td style="text-align: right;"><strong>94%</strong></td>
       <td style="text-align: right;">47%</td>
+      <td style="text-align: right;">263</td>
     </tr>
     <tr>
       <td rowspan="3">Full Unicode</td>
-      <td>Ecoji</td>
-      <td><code><a href="https://github.com/keith-turner/ecoji">ecoji</a></code></td>
+      <td><a href="https://github.com/keith-turner/ecoji">Ecoji</a></td>
       <td style="text-align: right;">31%</td>
       <td style="text-align: right;">31%</td>
       <td style="text-align: right;">31%</td>
+      <td style="text-align: right;">175</td>
     </tr>
     <tr>
-      <td>Base65536</td>
-      <td><code><a href="https://github.com/ferno/base65536">base65536</a></code></td>
+      <td><a href="https://github.com/ferno/base65536">Base65536</a></td>
       <td style="text-align: right;">56%</td>
       <td style="text-align: right;">64%</td>
       <td style="text-align: right;"><strong>50%</strong></td>
+      <td style="text-align: right;">280</td>
     </tr>
     <tr>
-      <td>Base131072</td>
-      <td><code><a href="https://github.com/ferno/base131072">base131072</a></code> (prototype)</td>
+      <td><a href="https://github.com/ferno/base131072">Base131072</a> (work in progress)</td>
       <td style="text-align: right;">53%+</td>
       <td style="text-align: right;">53%+</td>
       <td style="text-align: right;">53%</td>
+      <td style="text-align: right;">297</td>
     </tr>
   </tbody>
 </table>
