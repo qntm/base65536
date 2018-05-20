@@ -195,6 +195,11 @@ Perhaps future versions of Unicode will assign more characters and make this pos
 
 MIT
 
+## Other versions
+
+* [`base65536-stream`](https://github.com/qntm/base65536-stream) - streaming implementation
+* [`base65536-cli`](https://github.com/qntm/base65536-cli) - command-line tool
+
 ## In other languages
 
 This is a JavaScript implementation of the Base65536 encoding. There are other implementations:
