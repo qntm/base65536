@@ -9,7 +9,7 @@ Efficiency ratings are averaged over long inputs. Higher is better.
     <tr>
       <th colspan="2" rowspan="2">Encoding</th>
       <th colspan="3">Efficiency</th>
-      <th rowspan="2">Bytes per Tweet</th>
+      <th rowspan="2">Bytes per Tweet *</th>
     </tr>
     <tr>
       <th>UTF&#x2011;8</th>
@@ -42,14 +42,14 @@ Efficiency ratings are averaged over long inputs. Higher is better.
     </tr>
     <tr>
       <td>Base64</td>
-      <td style="text-align: right;">75%</td>
+      <td style="text-align: right;"><strong>75%</strong></td>
       <td style="text-align: right;">38%</td>
       <td style="text-align: right;">19%</td>
       <td style="text-align: right;">210</td>
     </tr>
     <tr>
-      <td>Base85</td>
-      <td style="text-align: right;"><strong>80%</strong></td>
+      <td>Base85 †</td>
+      <td style="text-align: right;">80%</td>
       <td style="text-align: right;">40%</td>
       <td style="text-align: right;">20%</td>
       <td style="text-align: right;">224</td>
@@ -99,7 +99,7 @@ Efficiency ratings are averaged over long inputs. Higher is better.
       <td style="text-align: right;">280</td>
     </tr>
     <tr>
-      <td><a href="https://github.com/ferno/base131072">Base131072</a> (work in progress)</td>
+      <td><a href="https://github.com/ferno/base131072">Base131072</a> ‡</td>
       <td style="text-align: right;">53%+</td>
       <td style="text-align: right;">53%+</td>
       <td style="text-align: right;">53%</td>
@@ -107,6 +107,10 @@ Efficiency ratings are averaged over long inputs. Higher is better.
     </tr>
   </tbody>
 </table>
+
+\* New-style "long" Tweets, up to 280 Unicode characters give or take Twitter's complex "weighting" calculation.<br/>
+† Base85 is listed for completeness but all variants use characters which are considered hazardous for general use in text: escape characters, brackets, punctuation *etc.*.<br/>
+‡ Base131072 is a work in progress, not yet ready for general use.<br/>
 
 For example, using Base64, up to 105 bytes of binary data can fit in a Tweet. With Base65536, 280 bytes are possible.
 
