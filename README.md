@@ -2,6 +2,8 @@
 
 Base65536 is a binary encoding optimised for UTF-32-encoded text. (For transmitting data through Twitter, Base65536 is now considered obsolete; see [Base2048](https://github.com/qntm/base2048).) This JavaScript module, `base65536`, is the first implementation of this encoding.
 
+Base65536 uses only ["safe" Unicode code points](https://qntm.org/safe) - no unassigned code points, no whitespace, no control characters, *etc.*.
+
 Efficiency ratings are averaged over long inputs. Higher is better.
 
 <table>
@@ -112,8 +114,6 @@ Efficiency ratings are averaged over long inputs. Higher is better.
 † Base85 is listed for completeness but all variants use characters which are considered hazardous for general use in text: escape characters, brackets, punctuation *etc.*.<br/>
 ‡ Base131072 is a work in progress, not yet ready for general use.<br/>
 
-Base65536 uses only ["safe" Unicode code points](https://qntm.org/safe) - no unassigned code points, no whitespace, no control characters, etc..
-
 ## Installation
 
 ```bash
@@ -171,13 +171,11 @@ HATETRIS has four buttons: left, right, down and rotate. A single move in HATETR
 > AAB0 AAAB 0AAB AAA9 5AAA AD56 AA5A AAB5 6AAC 02A9 AAAB 5AAA AAAD AAB5 5AA2
 > AAAE AA0A AAB2 AAD5 6AB5 AA02 AAA0 0AAA B55A AD6A BAAC 2AAB 0AA0 C2AA C02A
 
-That's 899 characters including spaces, or 720 characters if the spaces were removed. Were the hexadecimal characters converted to binary, I would have 360 bytes, and were the binary expressed in Base64, I would have 480 characters.
+That's 899 characters including spaces, or 720 characters if the spaces were removed. Were the hexadecimal characters converted to binary, one would have 360 bytes, and were the binary expressed in Base64, one would have 480 characters. This made replays impractical to share via Twitter, which at the time supported Tweets of only at most 140 characters.
 
-This made replays impractical to share via Twitter, which at the time supported Tweets of only at most 140 characters.
+Using elementary run-length encoding, using two bits of keystroke and two bits of run length, the replay shrinks to 2040 bits *i.e.* 255 bytes *i.e.* 340 characters of Base64. But that's still much too large.
 
-Using elementary run-length encoding, using two bits of keystroke and two bits of run length, the replay shrinks to 2040 bits i.e. 255 bytes i.e. 340 characters of Base64, which is still too large.
-
-However, "[Tweet length is measured by the number of codepoints in the NFC normalized version of the text.](https://dev.twitter.com/overview/api/counting-characters)", *not* by counting the number of bytes in any specific encoding of the text. Whereas Base64 encodes only 6 bits per Unicode code point for a potential maximum of 105 bytes per Tweet, Base65536 encodes 16 bits per Unicode code point for a potential maximum of a vastly improved **280 bytes per Tweet**.
+However, interestingly, "[Tweet length is measured by the number of codepoints in the NFC normalized version of the text.](https://dev.twitter.com/overview/api/counting-characters)", *not* by counting the number of bytes in any specific encoding of the text. Realising this, I developed Base65536. Whereas Base64 encodes only 6 bits per Unicode code point for a potential maximum of 105 bytes per Tweet, Base65536 encodes 16 bits per Unicode code point for a vastly improved **280 bytes per Tweet**.
 
 Expressing the 255-byte run-length encoded replay as Base65536, we get a string which is a svelte 128 code points long:
 
@@ -187,15 +185,15 @@ This [fit comfortably in a Tweet](https://twitter.com/qntm/status/67352301822479
 
 ## Later developments
 
-The 30-point record above was set on 4 May 2010. On 17 November 2017 the record was broken with a 31-point run whose Base65536 replay:
+The 30-point record above was set on 4 May 2010. On 6 June 2017 the record was broken with a 31-point run whose Base65536 replay:
 
 > 𤂻愈䲻㰋𣻋㼘𤇀𠞻𤇋傜𣾻𤇋𤆦𠪵𤃄遈肼𡮻𤆻絈𤇄𤆴𥆹𤅛𤆻𤺸𤅋𤄋𥆺𠞻𤆻𥆐𠪻𠪄𤇄𣺁𤄋𡪄郈𢪻𤇄㲸㰈𤄋𤊁𤂻𤄜𡪼𣢻𡊀𣺻丘𤇋𤩘𣾻𥄈𠪻𤃋㰈𤀛蹌𤅋𤄋𡚡𤇋𤀜緊𣥋𤆜𤆁𠲼綹𥅘𣹋䰉𣼋蹊𤽋𤅋𤆌𤆰𡚡䲻𤇂𤆤𡪥𣚻𣢻𠮤𤺸𤅋𤂄𡘜羹𤇆㾸㶹𤀌𢙛𡞐𤆌㶺𥄩𡮴㺻𣣋𤃋𣛋𥆀𤺦ꉊ𣛄𠚀𠚜𤆀职𢊻徻蹈𢫄𣾻𤄌𤛋𡛁𡫋羌𡏋㼈𢢌𢢬𥂐𡫅𣪄𡊤肻𣊐㼸𢪠𢪄䂸𡪄趜𥀩𡙋𢢀𡊀𣺆㼩𤂄𡫇𡪴䲹𥄉𨂀
 
 was 154 code points long, too long to fit in a Tweet.
 
-At about the same time in late 2017, Twitter <a href="https://blog.twitter.com/official/en_us/topics/product/2017/Giving-you-more-characters-to-express-yourself.html">increased the maximum Tweet length</a> from 140 to 280 Unicode code points... except that code points U+1100 HANGUL CHOSEONG KIYEOK upwards would now count double. Since Base65536 exclusively uses code points which count double, a new "long" Tweet could still only contain at most 140 code points of Base65536, or 280 bytes.
+Later in 2017, Twitter <a href="https://blog.twitter.com/official/en_us/topics/product/2017/Giving-you-more-characters-to-express-yourself.html">increased the maximum Tweet length</a> from 140 to 280 Unicode code points... except that code points U+1100 HANGUL CHOSEONG KIYEOK upwards now counted double. This effectively divided Unicode into "light" code points and "heavy" code points. Since Base65536 exclusively uses heavy code points, a new "long" Tweet could still only contain at most 140 code points of Base65536, or 280 bytes.
 
-These two events spurred me to develop a new binary encoding, [Base2048](https://github.com/qntm/base2048). Using Base2048, up to 385 bytes can fit in a Tweet. The previously unTweetable record 31-point replay became:
+These two events spurred me to develop a new binary encoding optimised for the new long Tweets, [Base2048](https://github.com/qntm/base2048). Using Base2048, up to 385 bytes can fit in a Tweet. The previously unTweetable record 31-point replay becomes:
 
 > ௨ഖƌݯߜࠏІWƑsໃa௨೯ܘݷಳජଈیԪؼʥݺԥඞܘݲࠐڄໂঅமةໃݹ௧ړІٽ௨൞ໃZ௨ಘІܥࠐΣІZߜටȜখذජНݹߛeʛݹߤปເѧ௩ԚໂՉࢸටuа௨સȣݷłقෆঅਏeܘԔצقషݸɢڠຜঀಧҸມѧஐට༪൩ԊಅഫܡथsถԡԦԚໃɥஸقࡈɕɠɈไݸצقషݰਵϺФঅஓػݐɓԞуຯɕझࡈ๐ݞझࢶІݞमปദஈƉؿଭݪஸҩЂ൸ԛمϦGƁҨVھԥචЅշࡂ෮लݷƘණ໘ࠅƘಧНקࢻҨฆӘದԋϝପࠑ੧ͳݲடփරݞਵΚϼɢԒԺٳѦԤࠌξGಘسਯܥஶҋϮτथlϼʔ
 
@@ -203,7 +201,7 @@ which, yes, [fits just fine](https://twitter.com/qntm/status/931634672236449793)
 
 Base2048 sadly renders Base65536 obsolete for its original intended purpose of sending binary data through Twitter. Base2048 is now used instead of Base65536 for rendering HATETRIS replays.
 
-However, Base65536 remains the state of the art for sending binary data through any text-based system which naively counts Unicode code points, in particular systems which use the fixed-width UTF-32 encoding.
+However, Base65536 remains the state of the art for sending binary data through text-based systems which naively counts Unicode code points, particularly those using the fixed-width UTF-32 encoding.
 
 ## Unicode has 1,114,112 code points, most of which we aren't using. Can we go further?
 
