@@ -136,9 +136,20 @@ console.log(uint8Array2);
 // [104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100]
 ```
 
+### In the browser
+
+Load this file in the browser to gain access to a `base65536` global.
+
+```html
+<script src='https://unpkg.com/base65536' crossorigin></script>
+<script>
+  console.log(base65536.decode('驨ꍬ啯𒁷ꍲᕤ'))
+</script>
+```
+
 ## API
 
-`base2048` accepts and returns `Uint8Array`s. Note that every Node.js `Buffer` is a `Uint8Array`. A `Uint8Array` can be converted to a Node.js `Buffer` like so:
+`base65536` accepts and returns `Uint8Array`s. Note that every Node.js `Buffer` is a `Uint8Array`. A `Uint8Array` can be converted to a Node.js `Buffer` like so:
 
 ```js
 const buffer = Buffer.from(uint8Array.buffer, uint8Array.byteOffset, uint8Array.byteLength)
