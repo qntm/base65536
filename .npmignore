@@ -1,4 +1,2 @@
 *
-!built/lib/**/*
-!package.json
-!README.md
+!dist/**/*

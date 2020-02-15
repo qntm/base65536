@@ -1,13 +1,16 @@
 {
   "name": "base65536",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Unicode's answer to Base64",
-  "homepage": "https://github.com/qntm/base65536",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/qntm/base65536.git"
+  "module": "dist/es6/base65536.js",
+  "main": "dist/cjs/base65536.js",
+  "browser": "dist/iife/base65536.js",
+  "scripts": {
+    "jest": "jest",
+    "rollup": "rollup",
+    "standard": "standard",
+    "test": "standard && jest"
   },
-  "main": "built/lib/index.js",
   "keywords": [
     "base64",
     "base65536",
@@ -17,25 +20,22 @@
     "decoding",
     "binary"
   ],
-  "scripts": {
-    "build": "npm run tslint && npm run clean && npm run tsc && npm run jasmine",
-    "clean": "rimraf bin built",
-    "tslint": "tslint --type-check --format verbose --project tsconfig.json --config tslint.json src/**/*.ts",
-    "jasmine": "jasmine --config=jasmine.json",
-    "prepublishOnly": "npm run build",
-    "test": "npm run build",
-    "tsc": "tsc --outDir built"
-  },
   "author": "qntm",
   "license": "MIT",
   "devDependencies": {
-    "@types/jasmine": "^2.5.53",
-    "@types/node": "^7.0.14",
+    "@babel/preset-env": "^7.8.4",
     "base65536-test": "^1.1.2",
-    "jasmine": "^2.6.0",
-    "rimraf": "^2.6.1",
-    "tslint": "^5.5.0",
-    "tslint-config-standard": "^6.0.1",
-    "typescript": "^2.4.1"
+    "glob": "^7.1.6",
+    "jest": "^25.1.0",
+    "rollup": "^1.31.0",
+    "standard": "^10.0.3"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "standard": {
+    "ignore": "dist"
   }
 }
