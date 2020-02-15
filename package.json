@@ -24,6 +24,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/preset-env": "^7.8.4",
+    "base65536-test": "^1.1.2",
     "glob": "^7.1.6",
     "jest": "^25.1.0",
     "rollup": "^1.31.0",

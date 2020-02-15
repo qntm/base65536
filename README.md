@@ -110,7 +110,7 @@ Efficiency ratings are averaged over long inputs. Higher is better.
   </tbody>
 </table>
 
-\* New-style "long" Tweets, up to 280 Unicode characters give or take Twitter's complex "weighting" calculation.<br/>
+\* Up to 280 Unicode characters give or take Twitter's complex "weighting" calculation.<br/>
 † Base85 is listed for completeness but all variants use characters which are considered hazardous for general use in text: escape characters, brackets, punctuation *etc.*.<br/>
 ‡ Base131072 is a work in progress, not yet ready for general use.<br/>
 
@@ -123,30 +123,34 @@ $ npm install base65536
 ## Usage
 
 ```js
-const base65536 = require('base65536')
+import { encode, decode } from 'base65536'
 
 const uint8Array = new Uint8Array([104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100])
 
-const string = base65536.encode(uint8Array.buffer); 
-console.log(string); // 6 code points, '驨ꍬ啯𒁷ꍲᕤ'
+const string = encode(uint8Array.buffer)
+console.log(string);
+// 6 code points, '驨ꍬ啯𒁷ꍲᕤ'
 
-const uint8Array2 = new Uint8Array(base65536.decode(string));
-console.log(uint8Array2); // [104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100]
+const uint8Array2 = new Uint8Array( decode(string))
+console.log(uint8Array2);
+// [104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100]
 ```
 
 ## API
 
-### base65536.encode(arrayBuffer[, wrap])
+`base2048` accepts and returns `Uint8Array`s. Note that every Node.js `Buffer` is a `Uint8Array`. A `Uint8Array` can be converted to a Node.js `Buffer` like so:
 
-Encodes an [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) and returns a Base65536 `String`, suitable for passing safely through almost any "Unicode-clean" text-handling API. This string contains no special characters and is immune to Unicode normalization. The string encodes two bytes per code point.
+```js
+const buffer = Buffer.from(uint8Array.buffer, uint8Array.byteOffset, uint8Array.byteLength)
+```
 
-If `wrap` is set, a `\n` will be inserted between every `wrap` Unicode characters of output. Suggested value: 140.
+### encode(uint8Array)
 
-### base65536.decode(string[, ignoreGarbage])
+Encodes a [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) and returns a Base65536 `String`, suitable for passing safely through almost any "Unicode-clean" text-handling API. This string contains no special characters and is immune to Unicode normalization. The string encodes two bytes per code point.
 
-Decodes a Base65536 `String` and returns an `ArrayBuffer` containing the original binary data.
+### decode(string)
 
-By default this function is very strict, with no tolerance for whitespace or other unexpected characters. An `Error` is thrown if the supplied string is not a valid Base65536 text, or if there is a "final byte" code point in the middle of the string. Set `ignoreGarbage` to `true` to ignore non-Base65536 characters (line breaks, spaces, alphanumerics, ...) in the input.
+Decodes a Base65536 `String` and returns a `Uint8Array` containing the original binary data.
 
 ## Background
 
