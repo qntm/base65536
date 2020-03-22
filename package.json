@@ -1,6 +1,6 @@
 {
   "name": "base65536",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Unicode's answer to Base64",
   "module": "dist/es6/base65536.js",
   "main": "dist/cjs/base65536.js",
