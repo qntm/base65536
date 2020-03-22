@@ -42,7 +42,7 @@ pairStrings.forEach((pairString, r) => {
   })
 })
 
-export const encode = uint8Array => {
+const encode = uint8Array => {
   const length = uint8Array.length
 
   let str = ''
@@ -80,7 +80,7 @@ export const encode = uint8Array => {
   return str
 }
 
-export const decode = str => {
+const decode = str => {
   const length = str.length
 
   // This length is a guess. There's a chance we allocate one more byte here
@@ -131,3 +131,5 @@ export const decode = str => {
 
   return new Uint8Array(uint8Array.buffer, 0, numUint8s)
 }
+
+export { encode, decode }

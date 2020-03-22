@@ -4,6 +4,7 @@
   "description": "Unicode's answer to Base64",
   "module": "dist/es6/base65536.js",
   "main": "dist/cjs/base65536.js",
+  "types": "typings/index.d.ts",
   "browser": "dist/iife/base65536.js",
   "scripts": {
     "jest": "jest",
