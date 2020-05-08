@@ -141,7 +141,7 @@ console.log(uint8Array2);
 Load this file in the browser to gain access to a `base65536` global.
 
 ```html
-<script src='https://unpkg.com/base65536' crossorigin></script>
+<script src='https://unpkg.com/base65536@3/dist/iife/base65536.js' crossorigin></script>
 <script>
   console.log(base65536.decode('驨ꍬ啯𒁷ꍲᕤ'))
 </script>
