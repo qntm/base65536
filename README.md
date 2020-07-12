@@ -243,7 +243,7 @@ This is a JavaScript implementation of the Base65536 encoding. There are other i
 * [Go](https://github.com/Nightbug/go-base65536)
 * [Ruby](https://github.com/Nightbug/base65536-ruby)
 * [PHP](https://github.com/hevertonfreitas/base65536)
-* [C](https://github.com/girst/base65536)
+* [C](https://git.gir.st/base65536.git)
 * [Rust](https://github.com/nuew/base65536)
 * [C#](https://github.com/cyberdot/base65536)
 
