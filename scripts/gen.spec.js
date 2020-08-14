@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import { eastAsianWidth } from '../../../../non-npm/safe-code-point'
+import { eastAsianWidth } from 'safe-code-point'
 import { paddingBlockStart, blockStarts } from './gen'
 
 describe('gen', () => {

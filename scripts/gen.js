@@ -18,7 +18,7 @@
 // transplanted into `base65536` for use. It is kept here for historical reasons
 // and to ensure reproducibility.
 
-import safeCodePoint, { generalCategory } from '../../../../non-npm/safe-code-point'
+import safeCodePoint, { generalCategory } from 'safe-code-point'
 
 const safeRange = (min, max) => {
   for (let codePoint = min; codePoint < max; codePoint++) {
