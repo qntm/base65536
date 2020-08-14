@@ -224,7 +224,7 @@ Not yet.
 
 To encode one additional bit per code point, we need to *double* the number of code points we use from 65,536 to 131,072. This would be a new encoding, [Base131072](https://github.com/qntm/base131072), and its UTF-32 encoding efficiency would be 53% vs. 50% for Base65536. (Note that in UTF-16, [Base32768](https://github.com/qntm/base32768) significantly outperforms either choice, and in UTF-8, Base64 remains the preferred choice.)
 
-However, as of Unicode 10.0, [`base65536gen`](https://github.com/qntm/base65536gen) returns only 116,813 safe code points altogether. Perhaps future versions of Unicode will eventually assign more characters and make this possible, but even when this eventually happens, it seems unlikely that the characters will be arranged neatly in the blocks of 256 which make Base65536 so small and simple. It might not be worth the trouble...
+However, as of Unicode 10.0, [`safe-code-point`](https://github.com/qntm/safe-code-point) returns only 116,813 safe code points altogether. Perhaps future versions of Unicode will eventually assign more characters and make this possible, but even when this eventually happens, it seems unlikely that the characters will be arranged neatly in the blocks of 256 which make Base65536 so small and simple. It might not be worth the trouble...
 
 ## License
 
