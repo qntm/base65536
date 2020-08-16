@@ -1,0 +1,8 @@
+{
+  "fixturesFolder": false,
+  "integrationFolder": "test-built",
+  "pluginsFile": false,
+  "screenshotOnRunFailure": false,
+  "supportFile": false,
+  "video": false
+}
