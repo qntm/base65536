@@ -11,10 +11,14 @@
   "main": "dist/cjs/base65536.js",
   "types": "typings/index.d.ts",
   "scripts": {
+    "build": "rollup -c rollup.config.js",
     "jest": "jest",
-    "rollup": "rollup",
     "standard": "standard",
-    "test": "standard && jest"
+    "test": "standard && jest",
+    "test-built": "npm run test-built-cjs && npm run test-built-es6 && npm run test-built-iife",
+    "test-built-cjs": "node test-built/cjs.js",
+    "test-built-es6": "babel-node test-built/es6.js",
+    "test-built-iife": "start-server-and-test \"node test-built/server.js\" http://localhost:3000/test-built/index.html \"cypress run --spec test-built/iife.js\""
   },
   "keywords": [
     "base64",
@@ -28,13 +32,17 @@
   "author": "qntm",
   "license": "MIT",
   "devDependencies": {
+    "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.8.4",
     "base65536-test": "^1.1.2",
+    "cypress": "^4.12.1",
+    "express": "^4.17.1",
     "glob": "^7.1.6",
     "jest": "^26.4.0",
     "rollup": "^2.26.2",
     "safe-code-point": "^1.0.0",
-    "standard": "^14.3.3"
+    "standard": "^14.3.3",
+    "start-server-and-test": "^1.11.3"
   },
   "babel": {
     "presets": [
