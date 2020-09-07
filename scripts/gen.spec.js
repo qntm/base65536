@@ -1,15 +1,22 @@
 /* eslint-env jest */
 
-import { eastAsianWidth } from 'safe-code-point'
-import { paddingBlockStart, blockStarts } from './gen'
+import gen from './gen'
 
 describe('gen', () => {
+  let generated
+
+  beforeAll(() =>
+    gen().then(g => {
+      generated = g
+    })
+  )
+
   it('generates the correct padding block', () => {
-    expect(paddingBlockStart).toBe('ᔀ')
+    expect(generated.paddingBlockStart).toBe('ᔀ')
   })
 
   it('generates the correct blocks', () => {
-    expect(blockStarts).toBe(
+    expect(generated.blockStarts).toBe(
       '㐀㔀㘀㜀㠀㤀㨀㬀㰀㴀㸀㼀䀀䄀䈀䌀' +
       '䐀䔀䘀䜀䠀䤀䨀䬀䰀一伀倀儀刀匀吀' +
       '唀嘀圀堀夀娀嬀尀崀帀开怀愀戀挀搀' +
@@ -34,7 +41,7 @@ describe('gen', () => {
     // 243 of the blocks are 'W' (wide), the other 13 + 1 are 'N' (neutral,
     // which in effect is narrow). This is significant when considering
     // rendering and wrapping.
-    const allBlockStarts = [...blockStarts].map(x => x.codePointAt(0))
+    const allBlockStarts = [...generated.blockStarts].map(x => x.codePointAt(0))
     const neutralBlockStarts = [...'ᔀꔀ𐘀𒀀𒄀𒈀𓀀𓄀𓈀𓌀𔐀𔔀𖠀𖤀'].map(x => x.codePointAt(0))
     allBlockStarts.forEach(blockStart => {
       for (let i = 0; i < 1 << 8; i++) {
@@ -44,7 +51,7 @@ describe('gen', () => {
             neutralBlockStart <= codePoint &&
             codePoint < neutralBlockStart + (1 << 8)
           )
-        expect(eastAsianWidth(codePoint, '8.0')).toBe(isInNeutralBlock ? 'N' : 'W')
+        expect(generated.safeCodePoint.eastAsianWidth(codePoint)).toBe(isInNeutralBlock ? 'N' : 'W')
       }
     })
   })
