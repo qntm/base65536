@@ -81,3 +81,6 @@ export default () => SafeCodePoint('8.0.0').then(safeCodePoint => {
 // * Perhaps try to find larger blocks of 512 or 1024 code points rather than
 // 256, or other techniques for reducing the size of the lookup tables.
 // * Choose all characters with the same East_Asian_Width of 'W' (wide).
+// * Make Base65536 big-endian, so that [0x00 0x00] and [0x00 0x01] encode to
+// code points which are separated by 1 - this would simplify decoding and be
+// more consistent with my other encodings.
