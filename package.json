@@ -13,6 +13,7 @@
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "jest": "jest",
+    "postpublish": "npm version patch && git push",
     "standard": "standard",
     "test": "standard && jest",
     "test-built": "npm run test-built-cjs && npm run test-built-es6 && npm run test-built-iife",

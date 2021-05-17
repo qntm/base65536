@@ -15,8 +15,8 @@ const BITS_PER_BYTE = 8
 
 // Compressed representation of inclusive-exclusive ranges of characters used in this encoding.
 const pairStrings = [
-  '㐀䴀一鼀ꄀꐀꔀꘀ𐘀𐜀𒀀𒌀𓀀𓐀𔐀𔘀𖠀𖨀𠀀𨘀',
-  'ᔀᘀ'
+  '㐀䳿一黿ꄀꏿꔀꗿ𐘀�𒀀�𓀀�𔐀�𖠀�𠀀�',
+  'ᔀᗿ'
 ]
 
 // Decompression
@@ -28,7 +28,7 @@ pairStrings.forEach((pairString, r) => {
   let z2 = 0
   pairString.match(/../gu).forEach(pair => {
     const [first, last] = [...pair].map(x => x.codePointAt(0))
-    for (let codePoint = first; codePoint < last; codePoint++) {
+    for (let codePoint = first; codePoint <= last; codePoint++) {
       const chr = String.fromCodePoint(codePoint)
 
       // SPECIAL CASE: flip the bytes around, because Base65536 was constructed to take the bytes
