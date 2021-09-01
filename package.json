@@ -1,28 +1,24 @@
 {
   "name": "base65536",
-  "version": "3.0.3",
+  "version": "4.0.0",
   "description": "Unicode's answer to Base64",
   "homepage": "https://github.com/qntm/base65536",
   "repository": {
     "type": "git",
     "url": "git://github.com/qntm/base65536.git"
   },
-  "module": "dist/es6/base65536.js",
-  "main": "dist/cjs/base65536.js",
+  "type": "module",
+  "main": "src",
   "types": "typings/index.d.ts",
   "scripts": {
-    "build": "rollup -c rollup.config.js",
-    "jest": "jest",
+    "cypress": "start-server-and-test \"node server/server.js\" http://localhost:3000/server/index.html \"cypress run\"",
+    "postpublish": "npm version patch && git push",
+    "jest": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --coverage --transform {} --testPathIgnorePatterns cypress",
     "standard": "standard",
-    "test": "standard && jest",
-    "test-built": "npm run test-built-cjs && npm run test-built-es6 && npm run test-built-iife",
-    "test-built-cjs": "node test-built/cjs.js",
-    "test-built-es6": "babel-node test-built/es6.js",
-    "test-built-iife": "start-server-and-test \"node test-built/server.js\" http://localhost:3000/test-built/index.html \"cypress run --spec test-built/iife.js\""
+    "test": "npm run standard && npm run jest && npm run cypress"
   },
   "keywords": [
     "base64",
-    "base65536",
     "encoding",
     "unicode",
     "text",
@@ -32,14 +28,15 @@
   "author": "qntm",
   "license": "MIT",
   "devDependencies": {
+    "@babel/eslint-parser": "^7.15.0",
     "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.8.4",
     "base65536-test": "^1.1.2",
+    "cross-env": "^7.0.3",
     "cypress": "^8.3.1",
     "express": "^4.17.1",
     "glob": "^7.1.6",
     "jest": "^27.0.3",
-    "rollup": "^2.26.3",
     "safe-code-point": "^3.0.0",
     "standard": "^16.0.1",
     "start-server-and-test": "^1.11.3"
@@ -50,10 +47,11 @@
     ]
   },
   "standard": {
-    "ignore": "dist"
+    "parser": "@babel/eslint-parser"
   },
   "files": [
-    "dist",
+    "src",
+    "!*.spec.js",
     "typings"
   ]
 }
