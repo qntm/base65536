@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.x.x
+
+`base65536` now ships as JavaScript ("ES6") modules, not CommonJS modules. The package has `"type": "module"`. Additionally a separate IIFE for browser use is no longer distributed.
+
 ## 3.x.x
 
 `encode` and `decode` now use `Uint8Arrays`, not `ArrayBuffer`s. The options `ignoreGarbage` and `wrap` have been scrapped.

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Base65536</title>
+
+    <script type="module">
+      import { encode, decode } from '../src/index.js'
+      const encoded = encode(new TextEncoder('utf-8').encode('what the heck is up'))
+      const decoded = new TextDecoder('utf-8').decode(decode(encoded))
+      document.querySelector('.root').appendChild(document.createTextNode(decoded))
+    </script>
+  </head>
+  <body>
+    <div class="root"></div>
+  </body>
+</html>

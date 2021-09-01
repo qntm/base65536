@@ -21,44 +21,40 @@
 import SafeCodePoint from 'safe-code-point'
 
 // Well these ergonomics are dreadful huh
-export default () => SafeCodePoint('8.0.0').then(safeCodePoint => {
-  const safeRange = (min, max) => {
-    for (let codePoint = min; codePoint < max; codePoint++) {
-      // Code points were chosen entirely from the "Letter, other" general
-      // category, for reasons which I no longer recall. Unicode 8.0 was current
-      // at the time.
-      if (
-        safeCodePoint.generalCategory(codePoint) !== 'Lo' ||
-        !safeCodePoint(codePoint)
-      ) {
-        return false
-      }
+const safeCodePoint = await SafeCodePoint('8.0.0')
+
+const safeRange = (min, max) => {
+  for (let codePoint = min; codePoint < max; codePoint++) {
+    // Code points were chosen entirely from the "Letter, other" general
+    // category, for reasons which I no longer recall. Unicode 8.0 was current
+    // at the time.
+    if (
+      safeCodePoint.generalCategory(codePoint) !== 'Lo' ||
+      !safeCodePoint(codePoint)
+    ) {
+      return false
     }
-    return true
   }
+  return true
+}
 
-  const getAllSafeRanges = rangeSize => {
-    const allSafeRanges = []
-    for (let codePoint = 0; codePoint < (1 << 16) + (1 << 20); codePoint += rangeSize) {
-      if (safeRange(codePoint, codePoint + rangeSize)) {
-        allSafeRanges.push(codePoint)
-      }
+const getAllSafeRanges = rangeSize => {
+  const allSafeRanges = []
+  for (let codePoint = 0; codePoint < (1 << 16) + (1 << 20); codePoint += rangeSize) {
+    if (safeRange(codePoint, codePoint + rangeSize)) {
+      allSafeRanges.push(codePoint)
     }
-    return allSafeRanges
   }
+  return allSafeRanges
+}
 
-  const allSafeRanges = getAllSafeRanges(1 << 8)
+const allSafeRanges = getAllSafeRanges(1 << 8)
 
-  const paddingBlockStart = String.fromCodePoint(allSafeRanges.shift())
+const paddingBlockStart = String.fromCodePoint(allSafeRanges.shift())
 
-  const blockStarts = allSafeRanges.slice(0, 1 << 8).map(x => String.fromCodePoint(x)).join('')
+const blockStarts = allSafeRanges.slice(0, 1 << 8).map(x => String.fromCodePoint(x)).join('')
 
-  return {
-    safeCodePoint,
-    paddingBlockStart,
-    blockStarts
-  }
-})
+export { safeCodePoint, paddingBlockStart, blockStarts }
 
 // There are now implementations of
 // Base65536 in numerous programming languages beyond the original JavaScript,
