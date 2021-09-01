@@ -216,7 +216,7 @@ which, yes, [fits just fine](https://twitter.com/qntm/status/931634672236449793)
 
 Base2048 sadly renders Base65536 obsolete for its original intended purpose of sending binary data through Twitter. Base2048 is now used instead of Base65536 for rendering HATETRIS replays.
 
-However, Base65536 remains the state of the art for sending binary data through text-based systems which naively counts Unicode code points, particularly those using the fixed-width UTF-32 encoding.
+However, Base65536 remains the state of the art for sending binary data through text-based systems which naively count Unicode code points, particularly those using the fixed-width UTF-32 encoding.
 
 ## Unicode has 1,114,112 code points, most of which we aren't using. Can we go further?
 
