@@ -50,11 +50,27 @@ const getAllSafeRanges = rangeSize => {
 
 const allSafeRanges = getAllSafeRanges(1 << 8)
 
-const paddingBlockStart = String.fromCodePoint(allSafeRanges.shift())
+const paddingRange = allSafeRanges.shift()
+const paddingBlockStart = String.fromCodePoint(paddingRange)
 
 const blockStarts = allSafeRanges.slice(0, 1 << 8).map(x => String.fromCodePoint(x)).join('')
 
-export { safeCodePoint, paddingBlockStart, blockStarts }
+const combinedRanges = allSafeRanges.slice(0, 1 << 8).map(start => [start, start + (1 << 8) - 1])
+let i = 0
+while (i in combinedRanges) {
+  if (i + 1 in combinedRanges && combinedRanges[i][1] + 1 === combinedRanges[i + 1][0]) {
+    combinedRanges.splice(i, 2, [combinedRanges[i][0], combinedRanges[i + 1][1]])
+  } else {
+    i++
+  }
+}
+
+const pairStrings = [
+  combinedRanges.map(([start, end]) => String.fromCodePoint(start) + String.fromCodePoint(end)).join(''),
+  String.fromCodePoint(paddingRange) + String.fromCodePoint(paddingRange + (1 << 8) - 1)
+]
+
+export { safeCodePoint, paddingBlockStart, blockStarts, pairStrings }
 
 // There are now implementations of
 // Base65536 in numerous programming languages beyond the original JavaScript,

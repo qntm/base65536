@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import { paddingBlockStart, blockStarts, safeCodePoint } from './gen'
+import { paddingBlockStart, blockStarts, safeCodePoint, pairStrings } from './gen'
 
 describe('gen', () => {
   it('generates the correct padding block', () => {
@@ -46,5 +46,12 @@ describe('gen', () => {
         expect(safeCodePoint.eastAsianWidth(codePoint)).toBe(isInNeutralBlock ? 'N' : 'W')
       }
     })
+  })
+
+  it('generates the right pair strings', () => {
+    expect(pairStrings).toEqual([
+      '㐀䳿一黿ꄀꏿꔀꗿ𐘀𐛿𒀀𒋿𓀀𓏿𔐀𔗿𖠀𖧿𠀀𨗿',
+      'ᔀᗿ'
+    ])
   })
 })

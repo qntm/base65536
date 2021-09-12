@@ -15,7 +15,7 @@ const BITS_PER_BYTE = 8
 
 // Compressed representation of inclusive-exclusive ranges of characters used in this encoding.
 const pairStrings = [
-  '㐀䳿一黿ꄀꏿꔀꗿ𐘀�𒀀�𓀀�𔐀�𖠀�𠀀�',
+  '㐀䳿一黿ꄀꏿꔀꗿ𐘀𐛿𒀀𒋿𓀀𓏿𔐀𔗿𖠀𖧿𠀀𨗿',
   'ᔀᗿ'
 ]
 
@@ -34,7 +34,6 @@ pairStrings.forEach((pairString, r) => {
       // SPECIAL CASE: flip the bytes around, because Base65536 was constructed to take the bytes
       // in the wrong order originally
       const z = numZBits === BITS_PER_CHAR ? 256 * (z2 % 256) + (z2 >> 8) : z2
-
       lookupE[numZBits][z] = chr
       lookupD[chr] = [numZBits, z]
       z2++
