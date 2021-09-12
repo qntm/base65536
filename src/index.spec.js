@@ -31,7 +31,7 @@ describe('base65536', () => {
     })
   })
 
-  describe.only('failure cases', () => {
+  describe('failure cases', () => {
     const badFileNames = glob.sync('./node_modules/base65536-test/data/bad/**/*.txt')
 
     badFileNames.forEach(fileName => {
@@ -72,5 +72,14 @@ describe('base65536', () => {
     const uint8Array2 = decode(str)
     const ascii2 = String.fromCharCode(...uint8Array2)
     expect(ascii2).toBe('some ASCII text')
+  })
+
+  it('bug', () => {
+    const ascii = 'what the heck is up'
+    const uint8Array = Uint8Array.from(ascii, chr => chr.charCodeAt(0))
+    const str = encode(uint8Array)
+    const uint8Array2 = decode(str)
+    const ascii2 = String.fromCharCode(...uint8Array2)
+    expect(ascii2).toBe('what the heck is up')
   })
 })
