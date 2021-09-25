@@ -8,7 +8,7 @@
     "url": "git://github.com/qntm/base65536.git"
   },
   "type": "module",
-  "main": "src",
+  "main": "src/index.js",
   "types": "typings/index.d.ts",
   "scripts": {
     "cypress": "start-server-and-test \"node server/server.js\" http://localhost:3000/server/index.html \"cypress run\"",
