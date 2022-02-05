@@ -223,6 +223,7 @@ MIT
 
 * [`base65536-stream`](https://github.com/qntm/base65536-stream) - streaming implementation
 * [`base65536-cli`](https://github.com/qntm/base65536-cli) - command-line tool
+* [`base65536-online`](https://github.com/lixiang810/base65536-online) - use base65536 to encode / decode text online
 
 ## In other languages
 
