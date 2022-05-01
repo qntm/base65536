@@ -38,7 +38,7 @@
     "glob": "^8.0.1",
     "jest": "^28.0.3",
     "safe-code-point": "^3.0.0",
-    "standard": "^16.0.1",
+    "standard": "^17.0.0",
     "start-server-and-test": "^1.11.3"
   },
   "babel": {
