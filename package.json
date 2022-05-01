@@ -36,7 +36,7 @@
     "cypress": "^9.1.0",
     "express": "^4.17.1",
     "glob": "^7.1.6",
-    "jest": "^27.0.3",
+    "jest": "^28.0.3",
     "safe-code-point": "^3.0.0",
     "standard": "^16.0.1",
     "start-server-and-test": "^1.11.3"
