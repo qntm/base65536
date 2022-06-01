@@ -5,7 +5,7 @@ export default defineConfig({
   screenshotOnRunFailure: false,
   video: false,
   e2e: {
-    setupNodeEvents(on, config) {},
-    supportFile: false,
-  },
+    setupNodeEvents (on, config) {},
+    supportFile: false
+  }
 })
