@@ -33,7 +33,7 @@
     "@babel/preset-env": "^7.8.4",
     "base65536-test": "^1.1.2",
     "cross-env": "^7.0.3",
-    "cypress": "^9.1.0",
+    "cypress": "^10.0.0",
     "express": "^4.17.1",
     "glob": "^8.0.1",
     "jest": "^28.0.3",
