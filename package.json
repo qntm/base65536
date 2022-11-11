@@ -12,9 +12,10 @@
   "types": "typings/index.d.ts",
   "scripts": {
     "cypress": "start-server-and-test \"node server/server.js\" http://localhost:3000/server/index.html \"cypress run\"",
-    "postpublish": "npm version patch && git push",
     "jest": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --coverage --transform {} --testPathIgnorePatterns cypress",
     "standard": "standard",
+    "tag": "node -e \"require('child_process').spawn('git', ['tag', `v${require('./package.json').version}`], { stdio: 'inherit' })\"",
+    "tag-and-publish": "npm run tag && git push --tags && npm publish && npm version patch --no-git-tag-version && git add . && git commit -m \"Bump patch\" && git push",
     "test": "npm run standard && npm run jest && npm run cypress"
   },
   "keywords": [
