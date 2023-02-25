@@ -35,7 +35,7 @@
     "express": "^4.17.1",
     "glob": "^8.0.1",
     "mocha": "^10.2.0",
-    "safe-code-point": "^3.0.0",
+    "safe-code-point": "^3.0.4",
     "standard": "^17.0.0",
     "start-server-and-test": "^1.11.3"
   },
