@@ -1,17 +1,10 @@
-/* eslint-env jest */
-
-'use strict'
-
-import fs from 'fs'
+import assert from 'node:assert'
+import fs from 'node:fs'
+import { describe, it } from 'mocha'
 import glob from 'glob'
-
-import { encode, decode } from '../src/index'
+import { encode, decode } from '../src/index.js'
 
 const forms = ['NFC', 'NFD', 'NFKC', 'NFKD']
-
-const expectUint8ArraysEqual = (expected, actual) => {
-  expect([...expected]).toEqual([...actual])
-}
 
 describe('base65536', () => {
   describe('success cases', () => {
@@ -22,10 +15,10 @@ describe('base65536', () => {
       it(caseName, () => {
         const uint8Array = new Uint8Array(fs.readFileSync(caseName + '.bin'))
         const text = fs.readFileSync(caseName + '.txt', 'utf8')
-        expect(encode(uint8Array)).toBe(text)
-        expectUint8ArraysEqual(decode(text), uint8Array)
+        assert.strictEqual(encode(uint8Array), text)
+        assert.deepStrictEqual(decode(text), uint8Array)
         forms.forEach(form => {
-          expect(text.normalize(form)).toBe(text)
+          assert.strictEqual(text.normalize(form), text)
         })
       })
     })
@@ -38,7 +31,7 @@ describe('base65536', () => {
       const caseName = fileName.substring(0, fileName.length - '.txt'.length)
       it(caseName, () => {
         const text = fs.readFileSync(caseName + '.txt', 'utf8')
-        expect(() => decode(text)).toThrow()
+        assert.throws(() => decode(text))
       })
     })
   })
@@ -59,7 +52,7 @@ describe('base65536', () => {
             uint8Array[i] = fillUint8
           }
 
-          expectUint8ArraysEqual(uint8Array, decode(encode(uint8Array)))
+          assert.deepStrictEqual(uint8Array, decode(encode(uint8Array)))
         })
       })
     }
@@ -71,7 +64,7 @@ describe('base65536', () => {
     const str = encode(uint8Array)
     const uint8Array2 = decode(str)
     const ascii2 = String.fromCharCode(...uint8Array2)
-    expect(ascii2).toBe('some ASCII text')
+    assert.strictEqual(ascii2, 'some ASCII text')
   })
 
   it('bug', () => {
@@ -80,6 +73,11 @@ describe('base65536', () => {
     const str = encode(uint8Array)
     const uint8Array2 = decode(str)
     const ascii2 = String.fromCharCode(...uint8Array2)
-    expect(ascii2).toBe('what the heck is up')
+    assert.strictEqual(ascii2, 'what the heck is up')
+  })
+
+  it('round trip to demonstrate padding behaviour', () => {
+    assert.deepStrictEqual(encode(Uint8Array.from([0x00, 0x01, 0x02])), '㔀ᔂ')
+    assert.deepStrictEqual(decode('㔀ᔂ'), Uint8Array.from([0x00, 0x01, 0x02]))
   })
 })

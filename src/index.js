@@ -68,10 +68,15 @@ const encode = uint8Array => {
 
   if (numZBits !== 0) {
     // Final bits require special treatment.
-    while (!(numZBits in lookupE)) {
-      z = (z << 1) + 1
-      numZBits++
-    }
+
+    // Some encodings require padding at this point, but not Base65536 because
+    // it's a 16-bit encoding for an 8-bit input and 8 divides 16 :D
+    /*
+      while (!(numZBits in lookupE)) {
+        z = (z << 1) + 1
+        numZBits++
+      }
+    */
 
     str += lookupE[numZBits][z]
   }
@@ -121,12 +126,13 @@ const decode = str => {
     }
   }
 
-  // Final padding bits! Requires special consideration!
-  // Remember how we always pad with 1s?
-  // Note: there could be 0 such bits, check still works though
-  if (uint8 !== ((1 << numUint8Bits) - 1)) {
-    throw new Error('Padding mismatch')
-  }
+  // Some encodings pad with 1s and require this special check,
+  // but not Base65536 :D
+  /*
+    if (uint8 !== ((1 << numUint8Bits) - 1)) {
+      throw new Error('Padding mismatch')
+    }
+  */
 
   return new Uint8Array(uint8Array.buffer, 0, numUint8s)
 }
