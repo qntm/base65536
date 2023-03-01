@@ -37,7 +37,7 @@
     "mocha": "^10.2.0",
     "safe-code-point": "^3.0.2",
     "standard": "^17.0.0",
-    "start-server-and-test": "^1.11.3"
+    "start-server-and-test": "^2.0.0"
   },
   "files": [
     "src",
