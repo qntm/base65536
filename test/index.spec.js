@@ -1,14 +1,14 @@
 import assert from 'node:assert'
 import fs from 'node:fs'
 import { describe, it } from 'mocha'
-import glob from 'glob'
+import { globSync } from 'glob'
 import { encode, decode } from '../src/index.js'
 
 const forms = ['NFC', 'NFD', 'NFKC', 'NFKD']
 
 describe('base65536', () => {
   describe('success cases', () => {
-    const binFileNames = glob.sync('./node_modules/base65536-test/data/pairs/**/*.bin')
+    const binFileNames = globSync('./node_modules/base65536-test/data/pairs/**/*.bin')
 
     binFileNames.forEach(fileName => {
       const caseName = fileName.substring(0, fileName.length - '.bin'.length)
@@ -25,7 +25,7 @@ describe('base65536', () => {
   })
 
   describe('failure cases', () => {
-    const badFileNames = glob.sync('./node_modules/base65536-test/data/bad/**/*.txt')
+    const badFileNames = globSync('./node_modules/base65536-test/data/bad/**/*.txt')
 
     badFileNames.forEach(fileName => {
       const caseName = fileName.substring(0, fileName.length - '.txt'.length)
