@@ -34,7 +34,7 @@
     "cypress": "^13.1.0",
     "express": "^4.17.1",
     "glob": "^10.2.2",
-    "mocha": "^10.2.0",
+    "mocha": "^11.0.0",
     "safe-code-point": "^3.0.2",
     "standard": "^17.0.0",
     "start-server-and-test": "^2.0.0"
