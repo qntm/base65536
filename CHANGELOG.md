@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.0.0
+
+Support is dropped for Node.js 14, 16 and 18.
+
 ## 4.x.x
 
 `base65536` now ships as JavaScript ("ES6") modules, not CommonJS modules. The package has `"type": "module"`. Additionally a separate IIFE for browser use is no longer distributed.

@@ -1,6 +1,6 @@
 {
   "name": "base65536",
-  "version": "4.0.4",
+  "version": "5.0.0",
   "description": "Unicode's answer to Base64",
   "homepage": "https://github.com/qntm/base65536",
   "repository": {
@@ -33,7 +33,7 @@
     "c8": "^10.1.2",
     "cypress": "^14.1.0",
     "express": "^4.17.1",
-    "glob": "^10.2.2",
+    "glob": "^11.0.2",
     "mocha": "^11.0.0",
     "safe-code-point": "^3.0.2",
     "standard": "^17.0.0",
