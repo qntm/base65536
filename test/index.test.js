@@ -1,4 +1,5 @@
-import assert from 'node:assert'
+import assert from 'node:assert/strict'
+
 import fs from 'node:fs'
 import { describe, it } from 'mocha'
 import { globSync } from 'glob'
@@ -15,10 +16,10 @@ describe('base65536', () => {
       it(caseName, () => {
         const uint8Array = new Uint8Array(fs.readFileSync(caseName + '.bin'))
         const text = fs.readFileSync(caseName + '.txt', 'utf8')
-        assert.strictEqual(encode(uint8Array), text)
-        assert.deepStrictEqual(decode(text), uint8Array)
+        assert.equal(encode(uint8Array), text)
+        assert.deepEqual(decode(text), uint8Array)
         forms.forEach(form => {
-          assert.strictEqual(text.normalize(form), text)
+          assert.equal(text.normalize(form), text)
         })
       })
     })
@@ -52,7 +53,7 @@ describe('base65536', () => {
             uint8Array[i] = fillUint8
           }
 
-          assert.deepStrictEqual(uint8Array, decode(encode(uint8Array)))
+          assert.deepEqual(uint8Array, decode(encode(uint8Array)))
         })
       })
     }
@@ -64,7 +65,7 @@ describe('base65536', () => {
     const str = encode(uint8Array)
     const uint8Array2 = decode(str)
     const ascii2 = String.fromCharCode(...uint8Array2)
-    assert.strictEqual(ascii2, 'some ASCII text')
+    assert.equal(ascii2, 'some ASCII text')
   })
 
   it('bug', () => {
@@ -73,11 +74,11 @@ describe('base65536', () => {
     const str = encode(uint8Array)
     const uint8Array2 = decode(str)
     const ascii2 = String.fromCharCode(...uint8Array2)
-    assert.strictEqual(ascii2, 'what the heck is up')
+    assert.equal(ascii2, 'what the heck is up')
   })
 
   it('round trip to demonstrate padding behaviour', () => {
-    assert.deepStrictEqual(encode(Uint8Array.from([0x00, 0x01, 0x02])), '㔀ᔂ')
-    assert.deepStrictEqual(decode('㔀ᔂ'), Uint8Array.from([0x00, 0x01, 0x02]))
+    assert.deepEqual(encode(Uint8Array.from([0x00, 0x01, 0x02])), '㔀ᔂ')
+    assert.deepEqual(decode('㔀ᔂ'), Uint8Array.from([0x00, 0x01, 0x02]))
   })
 })
