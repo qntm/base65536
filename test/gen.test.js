@@ -1,14 +1,14 @@
-import assert from 'node:assert'
+import assert from 'node:assert/strict'
 import { describe, it } from 'mocha'
 import { paddingBlockStart, blockStarts, safeCodePoint, pairStrings } from '../scripts/gen.js'
 
 describe('gen', () => {
   it('generates the correct padding block', () => {
-    assert.strictEqual(paddingBlockStart, 'ᔀ')
+    assert.equal(paddingBlockStart, 'ᔀ')
   })
 
   it('generates the correct blocks', () => {
-    assert.strictEqual(blockStarts,
+    assert.equal(blockStarts,
       '㐀㔀㘀㜀㠀㤀㨀㬀㰀㴀㸀㼀䀀䄀䈀䌀' +
       '䐀䔀䘀䜀䠀䤀䨀䬀䰀一伀倀儀刀匀吀' +
       '唀嘀圀堀夀娀嬀尀崀帀开怀愀戀挀搀' +
@@ -43,13 +43,13 @@ describe('gen', () => {
             neutralBlockStart <= codePoint &&
             codePoint < neutralBlockStart + (1 << 8)
           )
-        assert.strictEqual(safeCodePoint.eastAsianWidth(codePoint), isInNeutralBlock ? 'N' : 'W')
+        assert.equal(safeCodePoint.eastAsianWidth(codePoint), isInNeutralBlock ? 'N' : 'W')
       }
     })
   })
 
   it('generates the right pair strings', () => {
-    assert.deepStrictEqual(pairStrings, [
+    assert.deepEqual(pairStrings, [
       '㐀䳿一黿ꄀꏿꔀꗿ𐘀𐛿𒀀𒋿𓀀𓏿𔐀𔗿𖠀𖧿𠀀𨗿',
       'ᔀᗿ'
     ])
