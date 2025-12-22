@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
-
 import fs from 'node:fs'
-import { describe, it } from 'mocha'
+import { describe, it } from 'node:test'
+
 import { globSync } from 'glob'
 import { encode, decode } from '../src/index.js'
 
