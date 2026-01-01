@@ -11,7 +11,7 @@
   "main": "src/index.js",
   "types": "typings/index.d.ts",
   "scripts": {
-    "unit": "node --test --experimental-test-coverage --test-coverage-functions=100 --test-coverage-lines=100",
+    "unit": "node --test --experimental-test-coverage --test-coverage-functions=100 --test-coverage-lines=100 --test-coverage-branches=100",
     "standard": "standard",
     "tag": "node -e \"require('child_process').spawn('git', ['tag', `v${require('./package.json').version}`], { stdio: 'inherit' })\"",
     "tag-and-publish": "npm run tag && git push --tags && npm publish && npm version patch --no-git-tag-version && git add . && git commit -m \"Bump patch\" && git push",
